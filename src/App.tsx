@@ -1,9 +1,10 @@
 import React from "react";
+import Card from "./components/card/Card";
 
 const App: any = () => {
   return (
     <>
-      <h1>test</h1>
+      <Card title="large title" description="test description" />
     </>
   );
 };
