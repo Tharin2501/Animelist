@@ -3,12 +3,11 @@ import Styled from "styled-components";
 import { ApiDataType } from "./types/CardType";
 
 // API:   https://jikan.docs.apiary.io/#reference
-
+// TODO: image container. comment out title and despcrition and make api image fixed hieght. trenger conmtainer for alt egentlig så start med det
 const Wrapper = Styled.div`
     max-width: 250px;
-    max-height: 600px;
-    padding-left: 16px;
-    padding-right: 16px;
+    max-height: 550px;
+    padding: 16px;
     border: 1px solid red;
 `;
 
@@ -42,16 +41,26 @@ const StyledMockCard = Styled.span`
 
 // https://www.smashingmagazine.com/2020/06/rest-api-react-fetch-axios/  first param: id of anime in myanimelist url path.
 const Card: React.FunctionComponent<React.ReactNode> = () => {
-  // apiData is defined as a ApiDataType[] (string, number) and initialized as a empty array
+  // apiData is defined as a ApiDataType[] (string, number) and initialized as a empty array([])
   const [apiData, setApiData] = useState<ApiDataType[]>([]);
 
+  // Source: https://dmitripavlutin.com/javascript-fetch-async-await/
+  // As long as dependecny array[] is empty, run only once, and dont run again.
   useEffect(() => {
-    fetch("https://api.jikan.moe/v3/top/anime/1/airing")
-      .then((response) => response.json())
-      .then((data) => setApiData(data.top));
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://api.jikan.moe/v3/top/anime/1/airing"
+      );
+      const data = await response.json();
+      // Fetch does not handle errors.
+      if (!response.ok) {
+        throw new Error(`${response.status + " " + response.statusText}`);
+      }
+      console.log(data.top);
+      setApiData(data.top);
+    };
+    fetchData();
   }, []);
-
-  console.log(apiData);
 
   return (
     <FlexContainer>
@@ -62,12 +71,12 @@ const Card: React.FunctionComponent<React.ReactNode> = () => {
               <StyledUnorderedList>
                 <li>
                   <img
-                    style={{ width: "100%", height: "50%" }}
+                    style={{ width: "100%" }}
                     src={item.image_url}
                     alt={item.title}
                   ></img>
                   <h5>{item.title} </h5>
-                  <p>description here</p>
+                  <p>description her</p>
                 </li>
               </StyledUnorderedList>
             </StyledCard>
