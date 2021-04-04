@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Styled from "styled-components";
-import CardType, { ApiDataType } from "./types/CardType";
+import { ApiDataType } from "./types/CardType";
 
 // API:   https://jikan.docs.apiary.io/#reference
 
 const Wrapper = Styled.div`
     max-width: 250px;
+    max-height: 600px;
     padding-left: 16px;
     padding-right: 16px;
     border: 1px solid red;
-       // positioning
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+`;
+
+const FlexContainer = Styled.span`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const StyledCard = Styled.div`
-    // styling
     width: 200px;
+    padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
     background-color: white;
@@ -28,6 +31,13 @@ const StyledUnorderedList = Styled.ul`
  list-style-type: none;
  margin: 0;
  padding: 0;
+`;
+
+// src: https://travishorn.com/some-ways-to-align-the-last-row-in-a-flexbox-grid-720f365dcb16
+const StyledMockCard = Styled.span`
+  width: 200px;
+  padding: 37px; // 16px wrapper + 20px card + 1px border = 37px
+  visibility: hidden;
 `;
 
 // https://www.smashingmagazine.com/2020/06/rest-api-react-fetch-axios/  first param: id of anime in myanimelist url path.
@@ -44,19 +54,19 @@ const Card: React.FunctionComponent<React.ReactNode> = () => {
   console.log(apiData);
 
   return (
-    <React.Fragment>
+    <FlexContainer>
       {apiData.map((item) => {
         return (
-          <Wrapper>
+          <Wrapper key={item.mal_id}>
             <StyledCard>
               <StyledUnorderedList>
-                <li key={item.mal_id}>
+                <li>
                   <img
                     style={{ width: "100%", height: "50%" }}
                     src={item.image_url}
                     alt={item.title}
                   ></img>
-                  <h1>{item.title} </h1>
+                  <h5>{item.title} </h5>
                   <p>description here</p>
                 </li>
               </StyledUnorderedList>
@@ -64,7 +74,9 @@ const Card: React.FunctionComponent<React.ReactNode> = () => {
           </Wrapper>
         );
       })}
-    </React.Fragment>
+      <StyledMockCard>Mock card</StyledMockCard>
+      <StyledMockCard>Mock card</StyledMockCard>
+    </FlexContainer>
   );
 };
 
