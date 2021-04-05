@@ -19,6 +19,7 @@ const FlexContainer = Styled.span`
 
 const StyledCard = Styled.div`
     width: 200px;
+    height: 400px;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
@@ -30,6 +31,11 @@ const StyledUnorderedList = Styled.ul`
  list-style-type: none;
  margin: 0;
  padding: 0;
+`;
+
+const StyledImages = Styled.img`
+  max-width: 100%; // width of the image won’t exceed the width of its parent (200px) 
+  min-height: 300px;
 `;
 
 // src: https://travishorn.com/some-ways-to-align-the-last-row-in-a-flexbox-grid-720f365dcb16
@@ -70,12 +76,11 @@ const Card: React.FunctionComponent<React.ReactNode> = () => {
             <StyledCard>
               <StyledUnorderedList>
                 <li>
-                  <img
-                    style={{ width: "100%" }}
+                  <StyledImages
                     src={item.image_url}
                     alt={item.title}
-                  ></img>
-                  <h5>{item.title} </h5>
+                  ></StyledImages>
+                  <h3>{item.title} </h3>
                   <p>description her</p>
                 </li>
               </StyledUnorderedList>
@@ -83,8 +88,8 @@ const Card: React.FunctionComponent<React.ReactNode> = () => {
           </Wrapper>
         );
       })}
-      <StyledMockCard>Mock card</StyledMockCard>
-      <StyledMockCard>Mock card</StyledMockCard>
+      <StyledMockCard>Last 1/2</StyledMockCard>
+      <StyledMockCard>Last 2/2</StyledMockCard>
     </FlexContainer>
   );
 };
