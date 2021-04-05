@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 
 // Searchbar: https://www.emgoto.com/react-search-bar/
 
-// source: https://dmitripavlutin.com/react-useref-guide/
 // TODO: Controllable component DONE + searchbar filter https://www.youtube.com/watch?v=OlVkYnVXPl0
 const Searchbar: React.FunctionComponent<React.ReactNode> = () => {
   // https://fettblog.eu/typescript-react/hooks/#useref to prevent -> Object is possibly 'undefined'.  TS2532
@@ -33,7 +32,6 @@ const Searchbar: React.FunctionComponent<React.ReactNode> = () => {
           onChange={handleOnChange}
         ></input>
       </label>
-      {value}
     </form>
   );
 };
