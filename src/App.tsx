@@ -1,6 +1,6 @@
 import React from "react";
-import Card from "./components/card/Card";
-import CardsList from "./components/card/CardsList";
+import Card from "./components/card/CardList";
+import Searchbar from "./components/inputfield/Searchbar";
 
 const App: any = () => {
   return (
