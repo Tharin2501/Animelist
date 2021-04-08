@@ -5,8 +5,8 @@ import Searchbar from "./components/inputfield/Searchbar";
 const App: any = () => {
   return (
     <>
+      <Searchbar />
       <Card />
-      {/* <CardsList /> */}
     </>
   );
 };
