@@ -2,10 +2,11 @@ import React, { useRef, useEffect, useState } from "react";
 
 // Searchbar: https://www.emgoto.com/react-search-bar/
 
-// TODO: Controllable component DONE + searchbar filter https://www.youtube.com/watch?v=OlVkYnVXPl0
+// UNUSED,can delete  moved to CardList.tsx
 const Searchbar: React.FunctionComponent<React.ReactNode> = () => {
   // https://fettblog.eu/typescript-react/hooks/#useref to prevent -> Object is possibly 'undefined'.  TS2532
   const inputRef = useRef<HTMLInputElement>(null);
+  // searchterm
   const [value, setValue] = useState<string>(""); // For an input to be controlled, its value must correspond to that of a state variable.
 
   useEffect(() => {

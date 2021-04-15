@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Styled from "styled-components";
 import Card from "./Card";
 import { ApiDataType } from "./types/CardType";
-// TODO: key prop error in CardList. commit these changes to another branch and pull req
+
 // API:   https://jikan.docs.apiary.io/#reference
 const FlexContainer = Styled.span`
   display: flex;
@@ -21,6 +21,7 @@ const StyledMockCard = Styled.span`
 const CardList: React.FunctionComponent<React.ReactNode> = () => {
   // apiData is defined as a ApiDataType[] (string, number) and initialized as a empty array([])
   const [apiData, setApiData] = useState<ApiDataType[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Source: https://dmitripavlutin.com/javascript-fetch-async-await/
   // As long as dependecny array[] is empty, run only once, and dont run again.
@@ -38,18 +39,49 @@ const CardList: React.FunctionComponent<React.ReactNode> = () => {
       setApiData(data.top);
     };
     fetchData();
+    // with the initial value of a ref being null, inputRef might be null. TypeScript complains that you should do a strict null check.
+    if (inputRef.current !== null) {
+      inputRef.current.focus();
+    }
   }, []);
 
-  const cardList = apiData.map((item) => {
-    return <Card key={item.mal_id} item={item}></Card>;
-  });
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const handleOnChange = (event: React.FormEvent<HTMLInputElement>): void => {
+    return setSearchTerm(event.currentTarget.value); // currentTarget = element that has the event listener(input).
+  };
+
+  const cardList = apiData
+    .filter((item) => {
+      if (item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+        return item;
+      }
+      return null;
+    })
+    .map((item) => {
+      return <Card key={item.mal_id} item={item}></Card>;
+    });
 
   return (
-    <FlexContainer>
-      {cardList}
-      <StyledMockCard>Last 1/2</StyledMockCard>
-      <StyledMockCard>Last 2/2</StyledMockCard>
-    </FlexContainer>
+    <>
+      <form autoComplete="off">
+        <label>
+          add logo
+          <input
+            type="text"
+            placeholder="Search..."
+            ref={inputRef}
+            value={searchTerm}
+            onChange={handleOnChange}
+          ></input>
+        </label>
+      </form>
+      <FlexContainer>
+        {cardList}
+        <StyledMockCard>Last 1/2</StyledMockCard>
+        <StyledMockCard>Last 2/2</StyledMockCard>
+      </FlexContainer>
+    </>
   );
 };
 
