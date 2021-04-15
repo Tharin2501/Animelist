@@ -33,7 +33,7 @@ const StyledImages = Styled.img`
 
 const Card: React.FunctionComponent<CardType> = ({ item }) => {
   return (
-    <Wrapper key={item.mal_id}>
+    <Wrapper>
       <StyledCard>
         <StyledUnorderedList>
           <li>

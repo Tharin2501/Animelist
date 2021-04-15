@@ -41,7 +41,7 @@ const CardList: React.FunctionComponent<React.ReactNode> = () => {
   }, []);
 
   const cardList = apiData.map((item) => {
-    return <Card item={item}></Card>;
+    return <Card key={item.mal_id} item={item}></Card>;
   });
 
   return (
