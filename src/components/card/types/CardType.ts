@@ -1,15 +1,5 @@
 
-
-/*
-type CardType = {
-    media?: React.ReactNode, // image or video
-    title: string,
-    description: string
-}
-*/
-
 // type for Card, item returned by map function is the same type as the api data.
-
 export type CardType = {
   item: ApiDataType
 }

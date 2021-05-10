@@ -19,9 +19,10 @@ const StyledMockCard = Styled.span`
 
 // https://www.smashingmagazine.com/2020/06/rest-api-react-fetch-axios/  first param: id of anime in myanimelist url path.
 const CardList: React.FunctionComponent<React.ReactNode> = () => {
-  // apiData is defined as a ApiDataType[] (string, number) and initialized as a empty array([])
+  // apiData is defined as a ApiDataType[] and initialized as a empty array([])
   const [apiData, setApiData] = useState<ApiDataType[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   // Source: https://dmitripavlutin.com/javascript-fetch-async-await/
   // As long as dependecny array[] is empty, run only once, and dont run again.
@@ -45,22 +46,30 @@ const CardList: React.FunctionComponent<React.ReactNode> = () => {
     }
   }, []);
 
-  const [searchTerm, setSearchTerm] = useState<string>("");
-
   const handleOnChange = (event: React.FormEvent<HTMLInputElement>): void => {
     return setSearchTerm(event.currentTarget.value); // currentTarget = element that has the event listener(input).
   };
 
-  const cardList = apiData
-    .filter((item) => {
-      if (item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
-        return item;
-      }
-      return null;
-    })
-    .map((item) => {
-      return <Card key={item.mal_id} item={item}></Card>;
-    });
+  // Pass item as param to Card component as props.
+  const FilteredCardList = () => {
+    const mappedCards = apiData
+      .filter((item) => {
+        if (item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+          return item;
+        }
+        return null;
+      })
+      .map((item) => {
+        return <Card key={item.mal_id} item={item} />;
+      });
+    return (
+      <FlexContainer>
+        {mappedCards}
+        <StyledMockCard>Last 1/2</StyledMockCard>
+        <StyledMockCard>Last 2/2</StyledMockCard>
+      </FlexContainer>
+    );
+  };
 
   return (
     <>
@@ -76,11 +85,7 @@ const CardList: React.FunctionComponent<React.ReactNode> = () => {
           ></input>
         </label>
       </form>
-      <FlexContainer>
-        {cardList}
-        <StyledMockCard>Last 1/2</StyledMockCard>
-        <StyledMockCard>Last 2/2</StyledMockCard>
-      </FlexContainer>
+      <FilteredCardList />
     </>
   );
 };

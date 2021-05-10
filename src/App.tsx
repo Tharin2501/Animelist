@@ -1,11 +1,10 @@
 import React from "react";
-import Card from "./components/card/CardList";
-import Searchbar from "./components/inputfield/Searchbar";
+import CardList from "./components/card/CardList";
 
-const App: any = () => {
+const App = () => {
   return (
     <>
-      <Card />
+      <CardList />
     </>
   );
 };
