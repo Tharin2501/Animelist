@@ -1,11 +1,11 @@
 import React from "react";
-import Card from "./components/card/CardList";
-import Searchbar from "./components/inputfield/Searchbar";
+import CardContainer from "./components/card/CardContainer";
 
-const App: any = () => {
+// API: https://jikan.docs.apiary.io/#reference
+const App = () => {
   return (
     <>
-      <Card />
+      <CardContainer />
     </>
   );
 };
