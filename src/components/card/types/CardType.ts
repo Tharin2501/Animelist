@@ -4,6 +4,7 @@ export type CardType = {
   item: ApiDataType
 }
 
+// type for CardList, Api data returned by Jikan API initialized as an empty array
 export interface ApiDataType  {
     mal_id?: number;
     title?: string;
