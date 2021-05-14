@@ -18,7 +18,7 @@ const StyledMockCard = Styled.span`
 `;
 
 // https://www.smashingmagazine.com/2020/06/rest-api-react-fetch-axios/  first param: id of anime in myanimelist url path.
-const CardList: React.FunctionComponent<React.ReactNode> = () => {
+const CardList: React.FunctionComponent<ApiDataType> = () => {
   // apiData is defined as a ApiDataType[] (string, number) and initialized as a empty array([])
   const [apiData, setApiData] = useState<ApiDataType[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -53,7 +53,8 @@ const CardList: React.FunctionComponent<React.ReactNode> = () => {
 
   const cardList = apiData
     .filter((item) => {
-      if (item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (item.title?.toLowerCase().includes(searchTerm.toLowerCase())) {
+        // ? -> optional chaining/safe navigation operator to fix obj possibly undefined
         return item;
       }
       return null;
