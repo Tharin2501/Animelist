@@ -1,10 +1,11 @@
 import React from "react";
-import CardList from "./components/card/CardList";
+import CardContainer from "./components/card/CardContainer";
 
+// API: https://jikan.docs.apiary.io/#reference
 const App = () => {
   return (
     <>
-      <CardList />
+      <CardContainer />
     </>
   );
 };

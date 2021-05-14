@@ -2,7 +2,6 @@ import React from "react";
 import Styled from "styled-components";
 import { CardType } from "./types/CardType";
 
-// TODO: image container. comment out title and despcrition and make api image fixed hieght. trenger conmtainer for alt egentlig så start med det
 const Wrapper = Styled.div`
     max-width: 250px;
     max-height: 550px;
@@ -38,7 +37,7 @@ const Card: React.FunctionComponent<CardType> = ({ item }) => {
         <StyledUnorderedList>
           <li>
             <StyledImages src={item.image_url} alt={item.title}></StyledImages>
-            <h3>{item.title} </h3>
+            <h3>{item.title}</h3>
             <p>description her</p>
           </li>
         </StyledUnorderedList>

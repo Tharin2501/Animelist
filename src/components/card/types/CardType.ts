@@ -5,8 +5,10 @@ export type CardType = {
 }
 
 export interface ApiDataType  {
-    mal_id: number;
-    title: string;
-    image_url: string;
+    mal_id?: number;
+    title?: string;
+    image_url?: string;
+    data: ApiDataType[];
   };
+
 
