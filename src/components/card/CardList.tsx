@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Styled from "styled-components";
 import Card from "./Card";
-import { ApiDataType } from "./types/CardType";
+import { ApiDataType, CardType } from "./types/CardType";
 
 // API:   https://jikan.docs.apiary.io/#reference
 const FlexContainer = Styled.span`
@@ -63,8 +63,54 @@ const CardList: React.FunctionComponent<ApiDataType> = () => {
       return <Card key={item.mal_id} item={item}></Card>;
     });
 
+  // onClick that returns all mal_id. focus on the onClick under.
+  const handleOnClick = () => {
+    apiData.map((item) => {
+      console.log(item.mal_id);
+      return item.mal_id;
+    });
+  };
+
+  // mock of apiData
+  let test_data = [
+    {
+      id: 42938, // this is mal_id
+      title: "This is the test information",
+      test_score: 1,
+    },
+    {
+      id: "Test02", //Has to be a string form ID, fixed: i stringifyed it lol.
+      title: "This is the test information",
+      test_score: 2,
+    },
+  ];
+
+  // Provide the id as param and returns the title the id is associated with.
+  // TODO: Might have to do the opposite. provide the title and returns the id.  need to use apidata instead of mock
+  // src: https://stackoverflow.com/questions/53734705/javascript-find-object-by-id-in-an-array-of-javascript-objects-then-get-anothe
+  const found = (id: any) => {
+    JSON.stringify(id);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    let x = test_data.find((t) => t.id === id)?.title; // find title field from id
+    console.log(x);
+  };
+
+  /* TODO: 
+    GOAL: return the specific anime object when clicking a card. Then, Use the id from that object to make a get request to 
+          f.eks https://api.jikan.moe/v3/anime/42938 (synopsis is there).
+
+     - fiks found see todo there.
+     - when we click this button we need to make an API request to https://api.jikan.moe/v3/anime/42938 (last path is id)
+     maybe useEffect? and prefix https://api.jikan.moe/v3/anime/`${id}` hopefully we get the whole object
+     - When we have the object for 
+  */
+  const handleOnClickTest = () => {
+    return found(42938);
+  };
+
   return (
     <>
+      <button onClick={handleOnClickTest}>Click me and open console</button>
       <form autoComplete="off">
         <label htmlFor="searchbar">add logo</label>
         <input
@@ -76,7 +122,7 @@ const CardList: React.FunctionComponent<ApiDataType> = () => {
           onChange={handleOnChange}
         ></input>
       </form>
-      <FlexContainer>
+      <FlexContainer /*onClick={handleOnClick} */>
         {cardList}
         <StyledMockCard>Last 1/2</StyledMockCard>
         <StyledMockCard>Last 2/2</StyledMockCard>

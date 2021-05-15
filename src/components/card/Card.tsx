@@ -11,12 +11,12 @@ const Wrapper = Styled.div`
 
 const StyledCard = Styled.div`
     width: 200px;
-    height: 400px;
+    height: 450px;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
     background-color: white;
-    cursor: pointer;
+   // cursor: pointer;
 `;
 
 const StyledUnorderedList = Styled.ul`
@@ -30,6 +30,11 @@ const StyledImages = Styled.img`
   min-height: 300px;
 `;
 
+const FlexColumn = Styled.span`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Card: React.FunctionComponent<CardType> = ({ item }) => {
   return (
     <Wrapper>
@@ -37,8 +42,13 @@ const Card: React.FunctionComponent<CardType> = ({ item }) => {
         <StyledUnorderedList>
           <li>
             <StyledImages src={item.image_url} alt={item.title}></StyledImages>
-            <h3>{item.title}</h3>
-            <p>description her</p>
+            <FlexColumn>
+              <h3>{item.title}</h3>
+              <span>Score: {item.score}</span>
+
+              <span>Start date: {item.start_date}</span>
+              {item.end_date ? <span>End date: {item.end_date}</span> : null}
+            </FlexColumn>
           </li>
         </StyledUnorderedList>
       </StyledCard>

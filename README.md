@@ -10,4 +10,4 @@ Note: Not close to done, even the name of the project is under construction.
 ### TODO
 
 - Context or Redux for passing state through components (unnecessary for a small project like this but want to learn)
-- Display description data through props for API with ellipsis followed by read more link to another Details page. (maybe just use react-router here)
+- onCLick on specific Card (anime) routes to details page by mal_id(check console)we get from field from json object. f.eks click on fruits baskets routes to https://api.jikan.moe/v3/anime/42938
