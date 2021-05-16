@@ -8,6 +8,14 @@ const FlexContainer = Styled.span`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  border: 1px solid blue;
+`;
+
+const Synopsis = Styled.span`
+  border: 3px solid green;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 // src: https://travishorn.com/some-ways-to-align-the-last-row-in-a-flexbox-grid-720f365dcb16
@@ -22,9 +30,9 @@ const CardList: React.FunctionComponent<ApiDataType> = () => {
   // apiData is defined as a ApiDataType[] (string, number) and initialized as a empty array([])
   const [apiData, setApiData] = useState<ApiDataType[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [actualAnime, setActualAnime] = useState<any>([]);
+  const [myId, setMyId] = useState<any>(["array3"]);
 
-  // Source: https://dmitripavlutin.com/javascript-fetch-async-await/
-  // As long as dependecny array[] is empty, run only once, and dont run again.
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -60,57 +68,59 @@ const CardList: React.FunctionComponent<ApiDataType> = () => {
       return null;
     })
     .map((item) => {
-      return <Card key={item.mal_id} item={item}></Card>;
+      return (
+        <>
+          <Card key={item.mal_id} item={item}></Card>
+        </>
+      );
     });
 
-  // onClick that returns all mal_id. focus on the onClick under.
-  const handleOnClick = () => {
-    apiData.map((item) => {
-      console.log(item.mal_id);
-      return item.mal_id;
+  // src: https://stackoverflow.com/questions/19590865/from-an-array-of-objects-extract-value-of-a-property-as-array
+  function GetMalIdFromCards(input: any, field: any) {
+    var output: any[] = [];
+    /*
+    input.map((output: { mal_id: any }) => {
+      JSON.stringify(output.mal_id);
+      console.log(output.mal_id);
+      setMyId(output.mal_id);
     });
-  };
+    */
+    for (var i = 0; i < input.length; ++i) output.push(input[i][field]);
 
-  // mock of apiData
-  let test_data = [
-    {
-      id: 42938, // this is mal_id
-      title: "This is the test information",
-      test_score: 1,
-    },
-    {
-      id: "Test02", //Has to be a string form ID, fixed: i stringifyed it lol.
-      title: "This is the test information",
-      test_score: 2,
-    },
-  ];
+    return output;
 
-  // Provide the id as param and returns the title the id is associated with.
-  // TODO: Might have to do the opposite. provide the title and returns the id.  need to use apidata instead of mock
-  // src: https://stackoverflow.com/questions/53734705/javascript-find-object-by-id-in-an-array-of-javascript-objects-then-get-anothe
-  const found = (id: any) => {
-    JSON.stringify(id);
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    let x = test_data.find((t) => t.id === id)?.title; // find title field from id
-    console.log(x);
-  };
+    //var result = GetMalIdFromCards(apiData, "mal_id"); // henter id
+    //console.log(result);
+  }
+  const result = GetMalIdFromCards(apiData, "mal_id"); // array1
+  //console.log(myId); // array 2
+  const array3 = result.concat(myId); // add state to array3
+  console.log(array3); // DETTE er alle id for alle anime. `https://api.jikan.moe/v3/anime/${id}`
 
-  /* TODO: 
-    GOAL: return the specific anime object when clicking a card. Then, Use the id from that object to make a get request to 
-          f.eks https://api.jikan.moe/v3/anime/42938 (synopsis is there).
+  function getAnimeByProvidedId(id: any) {
+    fetch(`https://api.jikan.moe/v3/anime/${id}`) // need to pass id after anime/id here -> anime/42938
+      .then((response) => response.json())
+      .then(function (data) {
+        console.log(data.synopsis);
+        setActualAnime(data.synopsis);
+      });
+  }
 
-     - fiks found see todo there.
-     - when we click this button we need to make an API request to https://api.jikan.moe/v3/anime/42938 (last path is id)
-     maybe useEffect? and prefix https://api.jikan.moe/v3/anime/`${id}` hopefully we get the whole object
-     - When we have the object for 
-  */
-  const handleOnClickTest = () => {
-    return found(42938);
-  };
+  // TODO: PASS array3(Child) to
+  // r is the variable for the id of the individual anime
+
+  const listOfIds = array3.map((r) => {
+    return (
+      <Synopsis onClick={() => getAnimeByProvidedId(r)}>
+        {`link to JSON ${r}`}
+      </Synopsis>
+    );
+  });
 
   return (
     <>
-      <button onClick={handleOnClickTest}>Click me and open console</button>
+      {actualAnime}
+      {listOfIds}
       <form autoComplete="off">
         <label htmlFor="searchbar">add logo</label>
         <input
@@ -122,7 +132,8 @@ const CardList: React.FunctionComponent<ApiDataType> = () => {
           onChange={handleOnChange}
         ></input>
       </form>
-      <FlexContainer /*onClick={handleOnClick} */>
+
+      <FlexContainer>
         {cardList}
         <StyledMockCard>Last 1/2</StyledMockCard>
         <StyledMockCard>Last 2/2</StyledMockCard>

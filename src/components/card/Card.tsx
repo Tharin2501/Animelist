@@ -35,6 +35,7 @@ const FlexColumn = Styled.span`
   flex-direction: column;
 `;
 
+// parent
 const Card: React.FunctionComponent<CardType> = ({ item }) => {
   return (
     <Wrapper>
