@@ -1,4 +1,3 @@
-import React from "react";
 import Styled from "styled-components";
 import { CardType } from "./types/CardType";
 
@@ -35,18 +34,16 @@ const FlexColumn = Styled.span`
   flex-direction: column;
 `;
 
-// parent
 const Card: React.FunctionComponent<CardType> = ({ item }) => {
   return (
     <Wrapper>
       <StyledCard>
         <StyledUnorderedList>
-          <li>
+          <li key={item.mal_id}>
             <StyledImages src={item.image_url} alt={item.title}></StyledImages>
             <FlexColumn>
               <h3>{item.title}</h3>
               <span>Score: {item.score}</span>
-
               <span>Start date: {item.start_date}</span>
               {item.end_date ? <span>End date: {item.end_date}</span> : null}
             </FlexColumn>

@@ -2,6 +2,7 @@
 // type for Card, item returned by map function is the same type as the api data.
 export type CardType = {
   item: ApiDataType
+  synopsis?: any; 
 }
 
 // type for CardList, Api data returned by Jikan API initialized as an empty array
@@ -12,5 +13,5 @@ export interface ApiDataType  {
     start_date?: string;
     end_date?: string;
     score?: number;
-    data: ApiDataType[];
+    data?: ApiDataType[]; 
   };

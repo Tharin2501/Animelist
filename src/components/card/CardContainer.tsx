@@ -3,7 +3,6 @@ import CardList from "./CardList";
 
 import { ApiDataType } from "./types/CardType";
 
-// https://www.smashingmagazine.com/2020/06/rest-api-react-fetch-axios/  first param: id of anime in myanimelist url path.
 const CardContainer: React.FunctionComponent<React.ReactNode> = () => {
   // apiData is defined as a ApiDataType[] and initialized as a empty array([])
   const [apiData, setApiData] = useState<ApiDataType[]>([]);
@@ -20,7 +19,6 @@ const CardContainer: React.FunctionComponent<React.ReactNode> = () => {
       if (!response.ok) {
         throw new Error(`${response.status + " " + response.statusText}`);
       }
-      console.log(data.top);
       setApiData(data.top);
     };
     fetchData();
