@@ -10,30 +10,6 @@ const ContentContainer = Styled.span`
   justify-content: space-between;
 `;
 
-const SynopsisWrapper = Styled.div`
-  border: 1px solid red;
-  padding: 6px;
-`;
-
-type ButtonType = {
-  active: boolean;
-};
-
-//src: https://stackoverflow.com/questions/61348213/how-to-change-background-color-of-button-using-react
-const Button = Styled.button<ButtonType>`
-  margin: 3px;
-  padding: 2px 4px;
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-  color: slateBlue;
-  cursor: pointer;
-  &:hover {
-    border: 1px solid slateBlue;
-  }
-  background-color: ${(props) => (props.active ? "slateBlue" : null)};
-  color:${(props) => (props.active ? "white" : null)};
-`;
-
 // src: https://travishorn.com/some-ways-to-align-the-last-row-in-a-flexbox-grid-720f365dcb16
 const StyledMockCard = Styled.span`
   width: 200px;
@@ -43,8 +19,6 @@ const StyledMockCard = Styled.span`
 
 const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [actualAnime, setActualAnime] = useState<string[]>([]);
-  const [activeButton, setActiveButton] = useState<number | null>(null);
 
   useEffect(() => {
     // with the initial value of a ref being null, inputRef might be null. TypeScript complains that you should do a strict null check.
@@ -71,40 +45,6 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
     return output;
   }
 
-  const fetchAnimeById = React.useCallback((id: any) => {
-    fetch(`https://api.jikan.moe/v3/anime/${id}`) // need to pass id after anime/id here -> anime/42938
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.mal_id);
-        console.log(data.synopsis);
-        setActualAnime(data.synopsis);
-      });
-  }, []);
-
-  const TitleButtonGroup = () => {
-    const buttonGroup = data?.map((item) => {
-      const selectSynopsis = () => {
-        setActiveButton(item.mal_id!);
-        return fetchAnimeById(item.mal_id!);
-      };
-      return (
-        <Button
-          key={item.mal_id}
-          onClick={selectSynopsis}
-          active={activeButton === item.mal_id ? true : false}
-        >
-          {item.title}
-        </Button>
-      );
-    });
-    return (
-      <>
-        <SynopsisWrapper>{actualAnime}</SynopsisWrapper>
-        {buttonGroup}
-      </>
-    );
-  };
-
   const cardList = data
     ?.filter((item) => {
       // ? -> optional chaining/safe navigation operator to fix obj possibly undefined
@@ -119,7 +59,6 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
 
   return (
     <>
-      <TitleButtonGroup />
       <form autoComplete="off">
         <label htmlFor="searchbar">add logo</label>
         <input
