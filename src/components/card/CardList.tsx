@@ -84,21 +84,22 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
   }, []);
 
   const TitleButtonGroup = () => {
-    const buttonGroup = data?.map((item, index) => {
-      const SelectSynopsis = () => {
-        setActiveButton(index);
+    const buttonGroup = data?.map((item) => {
+      const selectSynopsis = () => {
+        setActiveButton(item.mal_id!);
         return fetchAnimeById(item.mal_id!);
       };
       return (
         <Button
-          onClick={SelectSynopsis}
-          active={activeButton === index ? true : false}
+          key={item.mal_id}
+          onClick={selectSynopsis}
+          active={activeButton === item.mal_id ? true : false}
         >
           {item.title}
         </Button>
       );
     });
-    console.log(activeButton);
+    //  console.log(activeButton);
     return (
       <>
         <SynopsisWrapper>{actualAnime}</SynopsisWrapper>
@@ -116,14 +117,12 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
       return null;
     })
     .map((item) => {
-      return <Card key={item.mal_id} item={item}></Card>;
+      return <Card key={item.mal_id} item={item} />;
     });
 
   return (
     <>
-      <ButtonGroupWrapper>
-        <TitleButtonGroup />
-      </ButtonGroupWrapper>
+      <TitleButtonGroup />
       <form autoComplete="off">
         <label htmlFor="searchbar">add logo</label>
         <input
