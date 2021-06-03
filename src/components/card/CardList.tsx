@@ -15,12 +15,12 @@ const SynopsisWrapper = Styled.div`
   padding: 6px;
 `;
 
-const ButtonGroupWrapper = Styled.div`
-  border: 1px solid blue;
-`;
+type ButtonType = {
+  active: boolean;
+};
 
 //src: https://stackoverflow.com/questions/61348213/how-to-change-background-color-of-button-using-react
-const Button = Styled.button<{ active?: boolean }>`
+const Button = Styled.button<ButtonType>`
   margin: 3px;
   padding: 2px 4px;
   border: 1px solid lightgrey;
@@ -44,7 +44,6 @@ const StyledMockCard = Styled.span`
 const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [actualAnime, setActualAnime] = useState<string[]>([]);
-  const [myId, setMyId] = useState<any>([{}]);
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
   useEffect(() => {
@@ -78,7 +77,6 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
       .then((data) => {
         console.log(data.mal_id);
         console.log(data.synopsis);
-        setMyId(data.mal_id);
         setActualAnime(data.synopsis);
       });
   }, []);
@@ -99,7 +97,6 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
         </Button>
       );
     });
-    //  console.log(activeButton);
     return (
       <>
         <SynopsisWrapper>{actualAnime}</SynopsisWrapper>
