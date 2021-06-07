@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Styled from "styled-components";
 import Card from "./Card";
 import { ApiDataType } from "./types/CardType";
+import { FiSearch } from "react-icons/fi";
 
 // API:  https://jikan.docs.apiary.io/#reference
 const ContentContainer = Styled.span`
@@ -15,6 +16,13 @@ const StyledMockCard = Styled.span`
   width: 200px;
   padding: 37px; // 16px wrapper + 20px card + 1px border = 37px
   visibility: hidden;
+`;
+
+const SearchContainer = Styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 16px;
 `;
 
 const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
@@ -64,15 +72,19 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
   const searchFilter = () => {
     return (
       <form autoComplete="off">
-        <label htmlFor="searchbar">add logo</label>
-        <input
-          id="searchbar"
-          type="text"
-          placeholder="Search..."
-          ref={inputRef}
-          value={searchTerm}
-          onChange={handleOnChange}
-        ></input>
+        <SearchContainer>
+          <label htmlFor="searchbar" style={{ paddingRight: "6px" }}>
+            <FiSearch size={20} />
+          </label>
+          <input
+            id="searchbar"
+            type="text"
+            placeholder="Search..."
+            ref={inputRef}
+            value={searchTerm}
+            onChange={handleOnChange}
+          ></input>
+        </SearchContainer>
       </form>
     );
   };
