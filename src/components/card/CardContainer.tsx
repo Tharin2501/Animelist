@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import TitleButtonGroup from "../TitleButtonGroup";
 import CardList from "./CardList";
 
 import { ApiDataType } from "./types/CardType";
@@ -24,7 +25,12 @@ const CardContainer: React.FunctionComponent<React.ReactNode> = () => {
     fetchData();
   }, []);
 
-  return <CardList data={apiData} />;
+  return (
+    <>
+      <TitleButtonGroup data={apiData} />
+      <CardList data={apiData} />
+    </>
+  );
 };
 
 export default CardContainer;
