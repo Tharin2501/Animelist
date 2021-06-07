@@ -45,20 +45,24 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
     return output;
   }
 
-  const cardList = data
-    ?.filter((item) => {
-      // ? -> optional chaining/safe navigation operator to fix obj possibly undefined
-      if (item.title?.toLowerCase().includes(searchTerm.toLowerCase())) {
-        return item;
-      }
-      return null;
-    })
-    .map((item) => {
-      return <Card key={item.mal_id} item={item} />;
-    });
+  const CardList = ({ data }: ApiDataType) => {
+    const listCards = data
+      .filter((item) => {
+        if (
+          item.title?.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+        ) {
+          return item;
+        }
+        return null;
+      })
+      .map((item) => {
+        return <Card key={item.mal_id} item={item} />;
+      });
+    return <>{listCards}</>;
+  };
 
-  return (
-    <>
+  const searchFilter = () => {
+    return (
       <form autoComplete="off">
         <label htmlFor="searchbar">add logo</label>
         <input
@@ -70,8 +74,15 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
           onChange={handleOnChange}
         ></input>
       </form>
+    );
+  };
+
+  return (
+    <>
+      {/* les detta https://dev.to/igor_bykov/react-calling-functional-components-as-functions-1d3l */}
+      {searchFilter()}
       <ContentContainer>
-        {cardList}
+        <CardList data={data} />
         <StyledMockCard>Last 1/2</StyledMockCard>
         <StyledMockCard>Last 2/2</StyledMockCard>
       </ContentContainer>
