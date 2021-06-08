@@ -7,7 +7,7 @@ type ButtonType = {
 };
 
 //src: https://stackoverflow.com/questions/61348213/how-to-change-background-color-of-button-using-react
-const Button = Styled.button<ButtonType>`
+export const Button = Styled.button<ButtonType>`
   margin: 3px;
   padding: 2px 4px;
   border: 1px solid lightgrey;
