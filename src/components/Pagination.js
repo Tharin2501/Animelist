@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "./TitleButtonGroup";
+import { Button } from "./button/Button";
 
 // TODO: refactor to .tsx file and add types
 const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
