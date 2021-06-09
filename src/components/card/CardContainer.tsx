@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Pagination from "../Pagination";
+import Pagination from "../pagination/Pagination";
 import TitleButtonGroup from "../TitleButtonGroup";
 import CardList from "./CardList";
 
@@ -9,7 +9,7 @@ const CardContainer: React.FunctionComponent<React.ReactNode> = () => {
   // apiData is defined as a ApiDataType[] and initialized as a empty array([])
   const [apiData, setApiData] = useState<ApiDataType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
+  const [itemsPerPage] = useState(10);
 
   // Source: https://dmitripavlutin.com/javascript-fetch-async-await/
   // As long as dependecny array[] is empty, run only once, and dont run again.
@@ -27,13 +27,13 @@ const CardContainer: React.FunctionComponent<React.ReactNode> = () => {
     };
     fetchData();
   }, []);
-  console.log(apiData);
 
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  // Start and end item indexes. Last -> currentPage(1) * itemsPerPage(10) = 10. First -> Last - itemsPerPage(10) = 0
+  const last = currentPage * itemsPerPage; // 10
+  const first = last - itemsPerPage; // 0
 
-  const currentPosts = apiData.slice(indexOfFirstPost, indexOfLastPost);
+  // Get current items by selecting the first and stops at the last
+  const currentPosts = apiData.slice(first, last);
 
   // Change page
   const paginate = (pageNumber: number) => {
@@ -44,7 +44,7 @@ const CardContainer: React.FunctionComponent<React.ReactNode> = () => {
     <>
       <TitleButtonGroup data={apiData} />
       <Pagination
-        postsPerPage={postsPerPage}
+        postsPerPage={itemsPerPage}
         totalPosts={apiData.length}
         paginate={paginate}
       />
