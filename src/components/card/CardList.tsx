@@ -93,6 +93,7 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
     <>
       {/* les detta https://dev.to/igor_bykov/react-calling-functional-components-as-functions-1d3l */}
       {searchFilter()}
+
       <ContentContainer>
         <CardList data={data} />
         <StyledMockCard>Last 1/2</StyledMockCard>
