@@ -47,7 +47,9 @@ const CardContainer: React.FunctionComponent<React.ReactNode> = () => {
         postsPerPage={itemsPerPage}
         totalPosts={apiData.length}
         paginate={paginate}
+        currentPage={currentPage}
       />
+
       <CardList data={currentPosts} />
     </>
   );

@@ -1,7 +1,7 @@
 import Styled from "styled-components";
 
 type ButtonType = {
-  active: boolean;
+  active?: boolean;
 };
 
 //src: https://stackoverflow.com/questions/61348213/how-to-change-background-color-of-button-using-react
