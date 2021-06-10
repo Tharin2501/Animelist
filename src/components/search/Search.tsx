@@ -33,7 +33,7 @@ const Search = ({ searchQuery, setSearchQuery }: SearchType) => {
         </label>
         <input
           value={searchQuery}
-          onInput={handleOnChange}
+          onChange={handleOnChange}
           type="text"
           id="searchbar"
           placeholder="Search..."

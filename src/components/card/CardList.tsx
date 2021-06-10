@@ -38,7 +38,7 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
       return data;
     }
 
-    return data.filter((post: ApiDataType) => {
+    return data?.filter((post: ApiDataType) => {
       if (post.title?.toLowerCase().includes(query)) {
         return post;
       }
@@ -52,7 +52,7 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
     <>
       <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <ContentContainer>
-        {filteredPosts.map((item: ApiDataType) => (
+        {filteredPosts?.map((item: ApiDataType) => (
           <Card key={item.mal_id} item={item} />
         ))}
         <StyledMockCard>Last 1/2</StyledMockCard>
