@@ -13,5 +13,5 @@ export interface ApiDataType  {
     start_date?: string;
     end_date?: string;
     score?: number;
-    data: ApiDataType[]; 
+    data?: ApiDataType[]; 
   };
