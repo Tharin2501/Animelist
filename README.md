@@ -18,9 +18,9 @@ Note: Not close to done, even the name of the project is under construction.
 
 Suggestions for things to implement.
 
-- Pagination (prio)
+- dark mode (context api)
 - Filter by Category, Date, etc..
-- Add a Postgres DB (find a use case for this, might need to bring in express)
+- Add a Postgres DB (find a use case for this, might need to bring in express). Maybe let user add anime to favorite by clicking star in card. Displayed in a "Favorites" tab in header?
 - Deploy to a cloud based service (Heroku? DigitalOcean?)
 - Header and Footer component
 - Context or Redux for passing state through components (unnecessary for a small project like this but want to learn)
