@@ -1,22 +1,20 @@
 import { ApiDataType } from "./card/types/CardType";
-import Styled from "styled-components";
-import React, { useState } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "./button/Button";
-
-const SynopsisWrapper = Styled.div`
-  padding: 6px;
-`;
+import Synopsis from "./synopsis/Synopsis";
 
 const TitleButtonGroup: React.FunctionComponent<ApiDataType> = ({ data }) => {
   const [activeButton, setActiveButton] = useState<number | null>(null);
   const [actualAnime, setActualAnime] = useState<string[]>([]);
+  const [toggleSynopsis, setToggleSynopsis] = useState(false);
 
-  const fetchAnimeById = React.useCallback((id: number) => {
+  const fetchAnimeById = useCallback((id: number) => {
     fetch(`https://api.jikan.moe/v3/anime/${id}`) // need to pass id after anime/id here -> anime/42938
       .then((response) => response.json())
       .then((data) => {
         console.log(data.synopsis);
         setActualAnime(data.synopsis);
+        setToggleSynopsis(true);
       });
   }, []);
 
@@ -41,7 +39,7 @@ const TitleButtonGroup: React.FunctionComponent<ApiDataType> = ({ data }) => {
 
   return (
     <>
-      <SynopsisWrapper>{actualAnime}</SynopsisWrapper>
+      <Synopsis toggleSynopsis={toggleSynopsis} actualAnime={actualAnime} />
       <ButtonGroup data={data} />
     </>
   );
