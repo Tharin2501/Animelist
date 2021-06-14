@@ -39,7 +39,11 @@ const TitleButtonGroup: React.FunctionComponent<ApiDataType> = ({ data }) => {
 
   return (
     <>
-      <Synopsis toggleSynopsis={toggleSynopsis} actualAnime={actualAnime} />
+      <Synopsis
+        toggleSynopsis={toggleSynopsis}
+        actualAnime={actualAnime}
+        setToggleSynopsis={setToggleSynopsis}
+      />
       <ButtonGroup data={data} />
     </>
   );
