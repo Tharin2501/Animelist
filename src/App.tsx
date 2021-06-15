@@ -1,8 +1,14 @@
 import CardContainer from "./components/card/CardContainer";
+import NavigationBar from "./components/navigationbar/NavigationBar";
 
 // API: https://jikan.docs.apiary.io/#reference
 const App = () => {
-  return <CardContainer />;
+  return (
+    <>
+      <NavigationBar />
+      <CardContainer />
+    </>
+  );
 };
 
 export default App;
