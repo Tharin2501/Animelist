@@ -21,7 +21,8 @@ const StyledMockCard = Styled.span`
 const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
   const { search } = window.location;
   const query = new URLSearchParams(search).get(""); // not needed yet
-  const [searchQuery, setSearchQuery] = useState(query || "");
+  //state needs to be "lifted up" to common parent(cardList) to share state with other components
+  const [searchTerm, setSearchTerm] = useState(query || "");
 
   /*
    Currently unused, might find a use case for this function later
@@ -33,7 +34,12 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
     return output;
   }
 
-  const filterItems = (query: any) => {
+  // Props are passed top-> bot, use Callback handler to communicate from Search -> CardList
+  const handleOnSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    return setSearchTerm(event.currentTarget.value); // currentTarget = element that has the event listener(input).
+  };
+
+  const filterItems = (query: string) => {
     if (!query) {
       return data;
     }
@@ -46,11 +52,11 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
     });
   };
 
-  const filteredPosts = filterItems(searchQuery);
+  const filteredPosts = filterItems(searchTerm);
 
   return (
     <>
-      <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <Search onSearch={handleOnSearch} searchTerm={searchTerm} />
       <ContentContainer>
         {filteredPosts?.map((item: ApiDataType) => (
           <Card key={item.mal_id} item={item} />
