@@ -3,6 +3,7 @@ import Styled from "styled-components";
 import Card from "./Card";
 import { ApiDataType } from "./types/CardType";
 import Search from "../search/Search";
+import { useEffect } from "react";
 
 // API:  https://jikan.docs.apiary.io/#reference
 const ContentContainer = Styled.span`
@@ -19,10 +20,15 @@ const StyledMockCard = Styled.span`
 `;
 
 const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
+  /* Currently unused
   const { search } = window.location;
-  const query = new URLSearchParams(search).get(""); // not needed yet
+  // const query = new URLSearchParams(search).get("");  
+  */
+
   //state needs to be "lifted up" to common parent(cardList) to share state with other components
-  const [searchTerm, setSearchTerm] = useState(query || "");
+  const [searchTerm, setSearchTerm] = useState(
+    localStorage.getItem("searchResult") || ""
+  );
 
   /*
    Currently unused, might find a use case for this function later
@@ -34,10 +40,14 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
     return output;
   }
 
-  // Props are passed top-> bot, use Callback handler to communicate from Search -> CardList
+  // Props are passed top-> bot, use Callback handler to communicate from CardList <- Search
   const handleOnSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    return setSearchTerm(event.currentTarget.value); // currentTarget = element that has the event listener(input).
+    setSearchTerm(event.currentTarget.value); // currentTarget = element that has the event listener(input).
   };
+
+  useEffect(() => {
+    localStorage.setItem("searchResult", searchTerm);
+  }, [searchTerm]);
 
   const filterItems = (query: string) => {
     if (!query) {
