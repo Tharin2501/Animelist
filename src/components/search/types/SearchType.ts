@@ -1,6 +1,8 @@
+
 type SearchType = {
-    searchQuery: string;
-    setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+   searchTerm: string; 
+   // setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+   onSearch (event: React.ChangeEvent<HTMLInputElement>): void;
 };
 
 export default SearchType;

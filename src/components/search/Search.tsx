@@ -11,7 +11,7 @@ const SearchContainer = styled.div`
 `;
 
 //src: https://www.emgoto.com/react-search-bar/
-const Search = ({ searchQuery, setSearchQuery }: SearchType) => {
+const Search = ({ searchTerm, onSearch }: SearchType) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -21,10 +21,6 @@ const Search = ({ searchQuery, setSearchQuery }: SearchType) => {
     }
   }, []);
 
-  const handleOnChange = (event: React.FormEvent<HTMLInputElement>): void => {
-    return setSearchQuery(event.currentTarget.value); // currentTarget = element that has the event listener(input).
-  };
-
   return (
     <form action="/" method="get" autoComplete="off">
       <SearchContainer>
@@ -32,8 +28,8 @@ const Search = ({ searchQuery, setSearchQuery }: SearchType) => {
           <FiSearch size={20} />
         </label>
         <input
-          value={searchQuery}
-          onChange={handleOnChange}
+          value={searchTerm} // Controlled Component
+          onChange={onSearch}
           type="text"
           id="searchbar"
           placeholder="Search..."
