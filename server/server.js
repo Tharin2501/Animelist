@@ -1,4 +1,3 @@
-// TODO: add body-parser as dependency (to handle JSON payloads)
 const express = require("express");
 const app = express();
 const fetch = require("node-fetch");
@@ -10,7 +9,7 @@ app.get("/", (req, res) => {
   fetch("https://api.jikan.moe/v3/anime/21")
     .then((res) => res.json())
     .then((json) => console.log(JSON.stringify(json)));
-  res.json("dwjdoiwa");
+  res.json("test");
 });
 
 app.listen(port, () => {
