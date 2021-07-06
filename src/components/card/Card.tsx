@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import Styled from "styled-components";
 import { CardType } from "./types/CardType";
 
@@ -35,6 +36,19 @@ const FlexColumn = Styled.span`
 `;
 
 const Card: React.FunctionComponent<CardType> = ({ item }) => {
+  const fetchAnimeById = useCallback((id: number) => {
+    fetch(`https://api.jikan.moe/v3/anime/${id}`) // need to pass id after anime/id here -> anime/42938
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }, []);
+
+  // TODO:  POST to http://localhost:3001/api/insert
+  const handleOnClick = (id: number) => {
+    return fetchAnimeById(id);
+  };
+
   return (
     <Wrapper>
       <StyledCard>
@@ -46,6 +60,9 @@ const Card: React.FunctionComponent<CardType> = ({ item }) => {
               <span>Score: {item.score}</span>
               <span>Start date: {item.start_date}</span>
               {item.end_date ? <span>End date: {item.end_date}</span> : null}
+              <button onClick={() => handleOnClick(item.mal_id!)}>
+                Add to favorites
+              </button>
             </FlexColumn>
           </li>
         </StyledUnorderedList>
