@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useCallback } from "react";
 import Styled from "styled-components";
 import { CardType } from "./types/CardType";
+import Axios from "axios";
 
 const Wrapper = Styled.div`
     max-width: 250px;
@@ -35,18 +37,28 @@ const FlexColumn = Styled.span`
   flex-direction: column;
 `;
 
+// TODO: need to save data.title to a state
 const Card: React.FunctionComponent<CardType> = ({ item }) => {
+  const [animeName, setAnimeName] = useState("");
+  //const [animeId, setAnimeId] = useState(null);
+
   const fetchAnimeById = useCallback((id: number) => {
     fetch(`https://api.jikan.moe/v3/anime/${id}`) // need to pass id after anime/id here -> anime/42938
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log("FETCHED" + data.title);
+        setAnimeName(data.title);
+        // console.log(animeName);
       });
   }, []);
 
   // TODO:  POST to http://localhost:3001/api/insert
   const handleOnClick = (id: number) => {
-    return fetchAnimeById(id);
+    fetchAnimeById(id);
+    Axios.post("http://localhost:3001/api/insert", {
+      animeName: animeName,
+    });
+    console.log("Post success");
   };
 
   return (
@@ -64,6 +76,7 @@ const Card: React.FunctionComponent<CardType> = ({ item }) => {
                 Add to favorites
               </button>
             </FlexColumn>
+            <p>{animeName}</p>
           </li>
         </StyledUnorderedList>
       </StyledCard>
