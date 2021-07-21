@@ -1,7 +1,6 @@
 # AnimeList
 
-A sideproject made only for the sole purpose to learn Typescript with React concepts.
-Its a classic "fetch data from a API and render the props" type of project
+A sideproject made only for the sole purpose to learn Typescript with React concepts. Using reuseable components created by me to build most of the UI.
 
 I haven't had the time to work on this as much as i wanted because of work, but hopefully it will get finished soon.
 
@@ -13,15 +12,22 @@ Note: Not close to done, even the name of the project is under construction.
 - Typescript
 - Styled Components
 - Yarn
+- Express
+- Node postgres
 
-### TODO
+### How to run
 
-Suggestions for things to implement.
+- clone git repository
+- cd into `/animelist`
+- run `yarn install` followed by `yarn start`
+- go to http://localhost:3000/
 
-- dark mode (context api)
-- Filter by Category, Date, etc..
-- Add a Postgres DB (find a use case for this, might need to bring in express). Maybe let user add anime to favorite by clicking star in card. Displayed in a "Favorites" tab in header?
-- Deploy to a cloud based service (Heroku? DigitalOcean?)
-- Header and Footer component
-- Context or Redux for passing state through components (unnecessary for a small project like this but want to learn)
-- onCLick on specific Card (anime) routes to details page by mal_id(check console)we get from field from json object. f.eks click on fruits baskets routes to https://api.jikan.moe/v3/anime/42938
+### Server
+
+Under construction. You can run it the same way as client.
+
+- cd into `/server`
+- run `yarn dev`
+- go to http://localhost:3001/
+
+`Note: No user signup as for now. All POST requests will be added to my own test user in my node postgres database `
