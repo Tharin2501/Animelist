@@ -1,6 +1,6 @@
 import { ApiDataType } from "./card/types/CardType";
 import { useState, useCallback } from "react";
-import { Button } from "./button/Button";
+import { Button } from "./button/OtherButtons";
 import Synopsis from "./synopsis/Synopsis";
 
 const TitleButtonGroup: React.FunctionComponent<ApiDataType> = ({ data }) => {
