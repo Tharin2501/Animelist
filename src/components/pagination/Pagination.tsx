@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "../button/Button";
+import { Button } from "../button/OtherButtons";
 import PaginationType from "./types/PaginationType";
 
 const Pagination = ({

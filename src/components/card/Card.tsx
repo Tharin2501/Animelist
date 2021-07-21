@@ -1,67 +1,79 @@
 import { useState } from "react";
-import Styled from "styled-components";
+import styled from "styled-components";
 import { CardType } from "./types/CardType";
 import axios from "axios";
+import Modal from "../modal/Modal";
+import { AiTwotoneHeart } from "react-icons/ai";
+import { DefaultButton } from "../button/DefaultButton";
 
-const Wrapper = Styled.div`
-    max-width: 250px;
-    max-height: 550px;
-    padding: 16px;
-    border: 1px solid red;
+const Wrapper = styled.div`
+  max-width: 250px;
+  max-height: 550px;
+  padding: 16px;
 `;
 
-const StyledCard = Styled.div`
-    width: 200px;
-    height: 450px;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
-    background-color: white;
-   // cursor: pointer;
+const StyledCard = styled.div`
+  width: 200px;
+  min-height: 450px;
+  padding: 9px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+  background-color: white;
 `;
 
-const StyledUnorderedList = Styled.ul`
- list-style-type: none;
- margin: 0;
- padding: 0;
+const StyledUnorderedList = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 `;
 
-const StyledImages = Styled.img`
-  max-width: 100%; // width of the image won’t exceed the width of its parent (200px) 
+const StyledImages = styled.img`
+  max-width: 100%; // width of the image won’t exceed the width of its parent (200px)
   min-height: 300px;
 `;
 
-const FlexColumn = Styled.span`
+const FlexColumn = styled.span`
   display: flex;
   flex-direction: column;
 `;
 
-const Card: React.FunctionComponent<CardType> = ({ item }) => {
-  const [name, setName] = useState<any>("");
-  const [isLoading, setIsLoading] = useState(false);
+const ButtonWrapper = styled.span`
+  padding-top: 9px;
+`;
 
+const Card: React.FunctionComponent<CardType> = ({ item }) => {
+  const [name, setName] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
+  // TODO: move these handlers to another directory(routes?) and export them. import here
   const handleGetRequest = async (id: number) => {
     axios
       .get(`https://api.jikan.moe/v3/anime/${id}`)
       .then((response) => {
         setName(response.data.title);
         setIsLoading(true);
+        console.log(`GET success`);
       })
       .catch((error) => {
         // handle error
         throw error;
       });
+    setOpenModal(true);
   };
 
   const handlePostRequest = () => {
-    const dto = {
+    const postData = {
       name: name,
     };
     axios
-      .post("http://localhost:3001/api/insert", dto)
-      .then(() => console.log(`POST success -> ${name}`))
+      .post("http://localhost:3001/api/insert", postData)
+      .then(() => {
+        setIsLoading(true);
+        console.log(`POST success`);
+      })
       .catch((error) => {
-        throw error;
+        alert(error);
       });
   };
 
@@ -72,20 +84,36 @@ const Card: React.FunctionComponent<CardType> = ({ item }) => {
           <li key={item.mal_id}>
             <StyledImages src={item.image_url} alt={item.title}></StyledImages>
             <FlexColumn>
-              <h3>{item.title}</h3>
+              <h4>{item.title}</h4>
               <span>Score: {item.score}</span>
-              <span>Start date: {item.start_date}</span>
-              {item.end_date ? <span>End date: {item.end_date}</span> : null}
-              {isLoading ? null : (
-                <button onClick={() => handleGetRequest(item.mal_id!)}>
-                  Add to favorites
-                </button>
+              {item.end_date ? (
+                <span>End date: {item.end_date}</span>
+              ) : (
+                <span>Start date: {item.start_date}</span>
               )}
-              {isLoading ? (
-                <button onClick={() => handlePostRequest()}>
-                  Are you sure?
-                </button>
-              ) : null}
+              {isLoading && openModal ? (
+                <Modal
+                  title={`${name}`}
+                  onClickPost={() => handlePostRequest()}
+                  onClickClose={() => setOpenModal(false)}
+                >
+                  {/* Added to favorites. right button(view favorites) routes to /favorites */}
+                  <span style={{ paddingTop: "13px" }}>
+                    Are you sure you want to add to favorites?
+                  </span>
+                </Modal>
+              ) : (
+                <ButtonWrapper>
+                  <DefaultButton
+                    icon={<AiTwotoneHeart color="tomato" />}
+                    onClick={() => handleGetRequest(item.mal_id!)}
+                    rounded
+                    bordered
+                  >
+                    Add to favorites
+                  </DefaultButton>
+                </ButtonWrapper>
+              )}
             </FlexColumn>
           </li>
         </StyledUnorderedList>

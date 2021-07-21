@@ -22,6 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // For parsing application/json
 app.use(express.json());
 
+/* Post anime title. see http://localhost:3001/api/get for list of posted anime.
+   use case: post handler in Card.tsx
+*/
 app.post("/api/insert", (req, res) => {
   // catch the state variable(name) in our frontend
   const name = req.body.name;
@@ -46,9 +49,10 @@ app.post("/api/insert", (req, res) => {
 // might be useful: https://www.taniarascia.com/node-express-postgresql-heroku/
 
 app.get("/", (req, res) => {
-  res.send("in use: /api/insert and /api/get");
+  res.send("current routes under construction: /api/insert and /api/get");
 });
 
+// Display all anime titles, response from POST are displayed here
 app.get("/api/get", (req, res, next) => {
   const sqlSelect = "SELECT * from favorite";
   db.query(sqlSelect, (err, result) => {
