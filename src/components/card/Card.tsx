@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 const StyledCard = styled.div`
   width: 200px;
   min-height: 450px;
-  padding: 9px;
+  padding: 12px;
   border-radius: 5px;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
   background-color: white;
