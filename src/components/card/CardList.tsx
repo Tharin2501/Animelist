@@ -5,6 +5,7 @@ import Search from "../search/Search";
 import useSemiPersistentState from "../../hooks/useSemiPersustentState";
 import TitleButtonGroup from "../TitleButtonGroup";
 import NavigationBar from "../navigationbar/NavigationBar";
+import { FiSearch } from "react-icons/fi";
 
 // API:  https://jikan.docs.apiary.io/#reference
 const ContentContainer = styled.span`
@@ -59,7 +60,14 @@ const CardList: React.FunctionComponent<ApiDataType> = ({
   return (
     <>
       <NavigationBar />
-      <Search onSearch={handleOnSearch} searchTerm={searchTerm} />
+      <Search
+        id="searchbar"
+        onSearch={handleOnSearch}
+        searchTerm={searchTerm}
+        isFocused
+      >
+        <FiSearch size={20} />
+      </Search>
       <TitleButtonGroup filteredData={allData} />
       <ContentContainer>
         {filteredPosts?.map((item: ApiDataType) => (

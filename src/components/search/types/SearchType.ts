@@ -1,8 +1,10 @@
 
 type SearchType = {
    searchTerm: string; 
-   // setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
    onSearch (event: React.ChangeEvent<HTMLInputElement>): void;
+   id: string;
+   type?: string;
+   isFocused?: boolean;
 };
 
 export default SearchType;

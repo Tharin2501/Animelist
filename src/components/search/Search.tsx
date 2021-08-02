@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
 import SearchType from "./types/SearchType";
 
@@ -12,27 +11,34 @@ const SearchContainer = styled.div`
 `;
 
 //src: https://www.emgoto.com/react-search-bar/
-const Search = ({ searchTerm, onSearch }: SearchType) => {
+const Search: React.FunctionComponent<SearchType> = ({
+  searchTerm,
+  onSearch,
+  id,
+  type = "text",
+  children,
+  isFocused,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     // with the initial value of a ref being null, inputRef might be null. TypeScript complains that you should do a strict null check.
-    if (inputRef.current !== null) {
+    if (isFocused && inputRef.current !== null) {
       inputRef.current.focus();
     }
-  }, []);
+  }, [isFocused]);
 
   return (
     <form action="/" method="get" autoComplete="off">
       <SearchContainer>
-        <label htmlFor="searchbar" style={{ paddingRight: "6px" }}>
-          <FiSearch size={20} />
+        <label htmlFor={id} style={{ paddingRight: "6px" }}>
+          {children}
         </label>
         <input
           value={searchTerm} // Controlled Component
           onChange={onSearch}
-          type="text"
-          id="searchbar"
+          type={type}
+          id={id}
           placeholder="Search..."
           name="search"
           ref={inputRef}
