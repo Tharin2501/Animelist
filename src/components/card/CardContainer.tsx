@@ -12,7 +12,6 @@ const CardContainer: React.FunctionComponent<React.ReactNode> = () => {
   const [itemsPerPage] = useState(10);
 
   // Source: https://dmitripavlutin.com/javascript-fetch-async-await/
-  // As long as dependecny array[] is empty, run only once, and dont run again.
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -42,15 +41,14 @@ const CardContainer: React.FunctionComponent<React.ReactNode> = () => {
 
   return (
     <>
-      <TitleButtonGroup data={apiData} />
+      {/* <TitleButtonGroup data={apiData} /> */}
       <Pagination
         postsPerPage={itemsPerPage}
         totalPosts={apiData.length}
         paginate={paginate}
         currentPage={currentPage}
       />
-
-      <CardList data={currentPosts} />
+      <CardList filteredData={currentPosts} allData={apiData} />
     </>
   );
 };

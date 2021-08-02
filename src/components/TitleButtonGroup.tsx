@@ -3,7 +3,9 @@ import { useState, useCallback } from "react";
 import { Button } from "./button/OtherButtons";
 import Synopsis from "./synopsis/Synopsis";
 
-const TitleButtonGroup: React.FunctionComponent<ApiDataType> = ({ data }) => {
+const TitleButtonGroup: React.FunctionComponent<ApiDataType> = ({
+  filteredData,
+}) => {
   const [activeButton, setActiveButton] = useState<number | null>(null);
   const [actualAnime, setActualAnime] = useState<string[]>([]);
   const [toggleSynopsis, setToggleSynopsis] = useState(false);
@@ -24,8 +26,8 @@ const TitleButtonGroup: React.FunctionComponent<ApiDataType> = ({ data }) => {
     return fetchAnimeById(id);
   };
 
-  const ButtonGroup = ({ data }: ApiDataType) => {
-    const listButtons = data?.map((item) => (
+  const ButtonGroup = ({ filteredData }: ApiDataType) => {
+    const listButtons = filteredData?.map((item) => (
       <Button
         key={item.mal_id}
         active={activeButton === item.mal_id ? true : false}
@@ -44,7 +46,7 @@ const TitleButtonGroup: React.FunctionComponent<ApiDataType> = ({ data }) => {
         actualAnime={actualAnime}
         setToggleSynopsis={setToggleSynopsis}
       />
-      <ButtonGroup data={data} />
+      <ButtonGroup filteredData={filteredData} />
     </>
   );
 };
