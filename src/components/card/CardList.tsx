@@ -9,14 +9,18 @@ const ContentContainer = styled.span`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
-// src: https://travishorn.com/some-ways-to-align-the-last-row-in-a-flexbox-grid-720f365dcb16
+/* src: https://travishorn.com/some-ways-to-align-the-last-row-in-a-flexbox-grid-720f365dcb16
 const StyledMockCard = styled.span`
   width: 200px;
   padding: 37px; // 16px wrapper + 20px card + 1px border = 37px
   visibility: hidden;
 `;
+*/
 
 const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
   /* Currently unused
@@ -29,17 +33,6 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
     "searchResult",
     ""
   );
-
-  /*
-   Currently unused, might find a use case for this function later
-   src: https://stackoverflow.com/questions/19590865/from-an-array-of-objects-extract-value-of-a-property-as-array
-  
-  function GetMalId(input: any, field: any) {
-    let output: any[] = [];
-    for (var i = 0; i < input.length; ++i) output.push(input[i][field]);
-    return output;
-  }
-  */
 
   // Props are passed top-> bot, use Callback handler to communicate from CardList <- Search
   const handleOnSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -68,8 +61,10 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
         {filteredPosts?.map((item: ApiDataType) => (
           <Card key={item.mal_id} item={item} />
         ))}
+        {/*
         <StyledMockCard>Last 1/2</StyledMockCard>
         <StyledMockCard>Last 2/2</StyledMockCard>
+        */}
       </ContentContainer>
     </>
   );
