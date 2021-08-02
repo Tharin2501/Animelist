@@ -8,9 +8,26 @@ const SearchContainer = styled.div`
   align-items: center;
   padding-top: 12px;
   padding-bottom: 12px;
+  width: 100%;
 `;
 
-//src: https://www.emgoto.com/react-search-bar/
+const StyledInput = styled.input`
+  font-size: 15px;
+  outline: none;
+  border: none;
+  padding: 7px;
+  background: aliceblue;
+`;
+
+const SearchIcon = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  background-color: aliceblue;
+`;
+
+// good source unused for now src: https://www.emgoto.com/react-search-bar/
 const Search: React.FunctionComponent<SearchType> = ({
   searchTerm,
   onSearch,
@@ -31,10 +48,8 @@ const Search: React.FunctionComponent<SearchType> = ({
   return (
     <form action="/" method="get" autoComplete="off">
       <SearchContainer>
-        <label htmlFor={id} style={{ paddingRight: "6px" }}>
-          {children}
-        </label>
-        <input
+        <SearchIcon>{children}</SearchIcon>
+        <StyledInput
           value={searchTerm} // Controlled Component
           onChange={onSearch}
           type={type}
@@ -43,7 +58,6 @@ const Search: React.FunctionComponent<SearchType> = ({
           name="search"
           ref={inputRef}
         />
-        <button type="submit">Search</button>
       </SearchContainer>
     </form>
   );
