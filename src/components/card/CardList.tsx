@@ -3,6 +3,8 @@ import Card from "./Card";
 import { ApiDataType } from "./types/CardType";
 import Search from "../search/Search";
 import useSemiPersistentState from "../../hooks/useSemiPersustentState";
+import TitleButtonGroup from "../TitleButtonGroup";
+import NavigationBar from "../navigationbar/NavigationBar";
 
 // API:  https://jikan.docs.apiary.io/#reference
 const ContentContainer = styled.span`
@@ -22,12 +24,11 @@ const StyledMockCard = styled.span`
 `;
 */
 
-const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
-  /* Currently unused
-  const { search } = window.location;
-  const query = new URLSearchParams(search).get("");  
-  */
-
+const CardList: React.FunctionComponent<ApiDataType> = ({
+  filteredData,
+  allData,
+}) => {
+  // *** SEARCH ***
   // State needs to be "lifted up" to common parent(cardList) to share state with other components
   const [searchTerm, setSearchTerm] = useSemiPersistentState(
     "searchResult",
@@ -41,10 +42,10 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
 
   const filterItems = (query: string) => {
     if (!query) {
-      return data;
+      return filteredData;
     }
 
-    return data?.filter((post: ApiDataType) => {
+    return filteredData?.filter((post: ApiDataType) => {
       if (post.title?.toLowerCase().includes(query)) {
         return post;
       }
@@ -53,10 +54,13 @@ const CardList: React.FunctionComponent<ApiDataType> = ({ data }) => {
   };
 
   const filteredPosts = filterItems(searchTerm);
+  // *** END OF SEARCH ***
 
   return (
     <>
+      <NavigationBar />
       <Search onSearch={handleOnSearch} searchTerm={searchTerm} />
+      <TitleButtonGroup filteredData={allData} />
       <ContentContainer>
         {filteredPosts?.map((item: ApiDataType) => (
           <Card key={item.mal_id} item={item} />

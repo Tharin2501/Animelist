@@ -7,7 +7,8 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 `;
 
 //src: https://www.emgoto.com/react-search-bar/

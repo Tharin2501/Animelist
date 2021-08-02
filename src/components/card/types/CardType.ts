@@ -13,5 +13,8 @@ export interface ApiDataType  {
     start_date?: string;
     end_date?: string;
     score?: number;
-    data?: ApiDataType[]; 
+    filteredData?: ApiDataType[]; 
+    allData?: ApiDataType[];  // all fetched data from api, data is paginated data
   };
+
+  
