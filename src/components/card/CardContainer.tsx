@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Pagination from "../pagination/Pagination";
-import TitleButtonGroup from "../TitleButtonGroup";
 import CardList from "./CardList";
 
 import { ApiDataType } from "./types/CardType";
@@ -39,16 +38,16 @@ const CardContainer: React.FunctionComponent<React.ReactNode> = () => {
     setCurrentPage(pageNumber);
   };
 
+  // TODO: Refactor Pagination, render it in CardList.tsx not here in container
   return (
     <>
-      {/* <TitleButtonGroup data={apiData} /> */}
+      <CardList filteredData={currentPosts} allData={apiData} />
       <Pagination
         postsPerPage={itemsPerPage}
         totalPosts={apiData.length}
         paginate={paginate}
         currentPage={currentPage}
       />
-      <CardList filteredData={currentPosts} allData={apiData} />
     </>
   );
 };
