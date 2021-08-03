@@ -1,5 +1,7 @@
+import { Close } from "@styled-icons/evaicons-solid/Close";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { ApiDataType } from "../card/types/CardType";
 import SearchType from "./types/SearchType";
 
 const SearchContainer = styled.div`
@@ -8,15 +10,21 @@ const SearchContainer = styled.div`
   align-items: center;
   padding-top: 12px;
   padding-bottom: 12px;
-  width: 100%;
 `;
 
 const StyledInput = styled.input`
+  border: 4px solid red;
   font-size: 15px;
+  width: 300px;
   outline: none;
   border: none;
   padding: 7px;
   background: aliceblue;
+  color: slateblue;
+  width: 300px;
+  &::placeholder {
+    color: slateblue;
+  }
 `;
 
 const SearchIcon = styled.label`
@@ -25,16 +33,59 @@ const SearchIcon = styled.label`
   justify-content: center;
   padding: 6px;
   background-color: aliceblue;
+  color: slateblue;
+`;
+
+// dataResult
+const DataContainer = styled.ul`
+  // margin-top: 3px;
+  width: 346px; // må være like lang som width på inputfiled
+  height: 200px; // 300 for å få med alt mindre enn det og man må scrolle
+  background-color: aliceblue;
+  color: slateblue;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
+  overflow: hidden;
+  overflow-y: auto;
+  margin: auto; // center
+  padding: 0; // remove default padding of ul
+  &::-webkit-scrollbar {
+    //display: none;
+  }
+`;
+
+const DataItemLink = styled.a`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: slateblue;
+  &:hover {
+    background-color: lightgray;
+    cursor: pointer;
+  }
+`;
+
+const StyledListItem = styled.li`
+  margin-left: 10px;
+  color: slateblue;
+`;
+
+const StyledCloseBtn = styled(Close)`
+  cursor: pointer;
+  color: slateblue;
 `;
 
 // good source unused for now src: https://www.emgoto.com/react-search-bar/
 const Search: React.FunctionComponent<SearchType> = ({
   searchTerm,
   onSearch,
+  onClickClear,
   id,
   type = "text",
   children,
   isFocused,
+  data,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -45,10 +96,33 @@ const Search: React.FunctionComponent<SearchType> = ({
     }
   }, [isFocused]);
 
+  // TODO: EXTRACT TO OWN FILE TO USE IN CARDLIST AND HERE
+  const filterItems = (query: string) => {
+    if (!query) {
+      return data;
+    }
+
+    return data?.filter((post: ApiDataType) => {
+      if (post.title?.toLowerCase().includes(query)) {
+        return post;
+      }
+      return null;
+    });
+  };
+
+  const filteredPosts = filterItems(searchTerm);
+  // END OF TODO
+
   return (
     <form action="/" method="get" autoComplete="off">
       <SearchContainer>
-        <SearchIcon>{children}</SearchIcon>
+        <SearchIcon>
+          {searchTerm.length === 0 ? (
+            <>{children}</>
+          ) : (
+            <StyledCloseBtn size={20} onClick={onClickClear} />
+          )}
+        </SearchIcon>
         <StyledInput
           value={searchTerm} // Controlled Component
           onChange={onSearch}
@@ -59,6 +133,17 @@ const Search: React.FunctionComponent<SearchType> = ({
           ref={inputRef}
         />
       </SearchContainer>
+      {searchTerm.length !== 0 && (
+        <DataContainer>
+          {filteredPosts!.slice(0, 15).map((item: ApiDataType) => {
+            return (
+              <DataItemLink href={item.url} key={item.mal_id}>
+                <StyledListItem>{item.title}</StyledListItem>
+              </DataItemLink>
+            );
+          })}
+        </DataContainer>
+      )}
     </form>
   );
 };

@@ -36,7 +36,7 @@ const CardList: React.FunctionComponent<ApiDataType> = ({
     ""
   );
 
-  // Props are passed top-> bot, use Callback handler to communicate from CardList <- Search
+  // Props are passed top-> bot, use Callback handler to communicate from CardList <-> Search
   const handleOnSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(event.currentTarget.value); // currentTarget = element that has the event listener(input).
   };
@@ -55,6 +55,11 @@ const CardList: React.FunctionComponent<ApiDataType> = ({
   };
 
   const filteredPosts = filterItems(searchTerm);
+
+  const clearInput = () => {
+    setSearchTerm([]);
+  };
+
   // *** END OF SEARCH ***
 
   return (
@@ -63,8 +68,12 @@ const CardList: React.FunctionComponent<ApiDataType> = ({
       <Search
         id="searchbar"
         onSearch={handleOnSearch}
+        onClickClear={clearInput}
         searchTerm={searchTerm}
         isFocused
+        data={
+          allData
+        } /* OR  data={filteredData} it will display the paginated data */
       >
         <FiSearch size={20} />
       </Search>

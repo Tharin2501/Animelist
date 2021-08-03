@@ -10,6 +10,7 @@ export interface ApiDataType  {
     mal_id?: number;
     title?: string;
     image_url?: string;
+    url?: string;
     start_date?: string;
     end_date?: string;
     score?: number;
