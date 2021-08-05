@@ -1,9 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import styled, { ThemeProvider } from "styled-components";
 import NavigaitonBarType from "./types/NavigationBarType";
 import { FiStar, FiInfo } from "react-icons/fi";
 import { GiNoodles } from "react-icons/gi";
 import { IoIosContact } from "react-icons/io";
+import { darkTheme, GlobalStyles, lightTheme } from "../../themes/themes";
 
 const FlexUl = styled.ul`
   display: flex;
@@ -13,7 +14,6 @@ const FlexUl = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 6px;
-  background-color: snow;
   // screen larger than 320px
   @media (min-width: 320px) {
     justify-content: flex-end;
@@ -93,8 +93,14 @@ export const NavigationBarItems: React.FunctionComponent<NavigaitonBarType> = ({
 };
 
 const NavigationBar = () => {
+  const [theme, setTheme] = useState("light");
+
+  const themeToggler = () => {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  };
   return (
-    <>
+    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+      <GlobalStyles />
       <NavigationBarItems
         title={
           <StyledTitle title="Animelist">
@@ -103,6 +109,9 @@ const NavigationBar = () => {
           </StyledTitle>
         }
       >
+        <ListItem>
+          <button onClick={themeToggler}>Switch</button>
+        </ListItem>
         <ListItem title="Favorites">
           Favorites <StyledStarIcon />
         </ListItem>
@@ -113,7 +122,7 @@ const NavigationBar = () => {
           Contact <StyledInfoIcon />
         </ListItem>
       </NavigationBarItems>
-    </>
+    </ThemeProvider>
   );
 };
 
