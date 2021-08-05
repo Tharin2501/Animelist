@@ -2,24 +2,14 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 export const lightTheme = {
   body: "#ffff", // White
-<<<<<<< HEAD
   fontColor: "SlateBlue",
   fill: "DarkSlateBlue",
-=======
-  fontColor: "SlateBlue", // SlateBlue
-  fill: "DarkSlateBlue", // darkslateblue
->>>>>>> fix: dark and light mode for navigationbar part done
 };
 
 export const darkTheme = {
   body: "#121212", // Black
-<<<<<<< HEAD
   fontColor: "aliceBlue", // OR SlateGray
   fill: "DarkOrange", // DarkOrange (used in NavigationBar hover)
-=======
-  fontColor: "aliceblue", // OR SlateGray
-  fill: "DarkOrange", // DarkOrange (used in NavigationBar)
->>>>>>> fix: dark and light mode for navigationbar part done
 };
 
 /*  
@@ -39,15 +29,10 @@ export const color = {
 export const GlobalStyles = createGlobalStyle`
     body {
         background-color: ${({ theme }) => theme.body};
-<<<<<<< HEAD
         // W: SlateBlue / B: aliceBlue */
         color: ${({ theme }) => theme.fontColor};
         // W: DarkSlateBlue / B: DarkOrange
         fill: ${({ theme }) => theme.fill}; 
-=======
-        color: ${({ theme }) => theme.fontColor};
-        fill: ${({ theme }) => theme.fill};
->>>>>>> fix: dark and light mode for navigationbar part done
     }
 `;
 
