@@ -5,6 +5,7 @@ import { FiStar, FiInfo } from "react-icons/fi";
 import { GiNoodles } from "react-icons/gi";
 import { IoIosContact } from "react-icons/io";
 import { darkTheme, GlobalStyles, lightTheme } from "../../themes/themes";
+import Toggler from "../Toggler";
 
 const FlexUl = styled.ul`
   display: flex;
@@ -39,7 +40,7 @@ const StyledTitle = styled.h1`
   margin: 0;
   display: flex;
   align-items: center;
-  color: ${({ theme }) => theme.fontColor};
+  color: ${({ theme }) => theme.aliceBlue};
   &:hover {
     color: ${({ theme }) => theme.fill};
   }
@@ -51,7 +52,7 @@ const ListItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  //color: slateblue;
+  color: ${({ theme }) => theme.aliceBlue};
   &:hover {
     cursor: pointer;
     border-bottom: 3px solid ${({ theme }) => theme.fill};
@@ -104,7 +105,7 @@ const NavigationBar = () => {
       >
         <ListItem>
           {/* TODO: Create a reusable Switch component an use it instead*/}
-          <span onClick={themeToggler}>Dark/light mode</span>
+          <Toggler theme={theme} toggleTheme={themeToggler} />
         </ListItem>
         <ListItem title="Favorites">
           Favorites <StyledStarIcon />

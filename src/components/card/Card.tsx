@@ -18,7 +18,7 @@ const StyledCard = styled.div`
   padding: 12px;
   border-radius: 5px;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
-  background-color: white;
+  color: ${({ theme }) => theme.fontColor};
 `;
 
 const StyledUnorderedList = styled.ul`
