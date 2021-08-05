@@ -29,16 +29,19 @@ const TitleWrapper = styled.li`
   }
 `;
 
+const StyledHomeIcon = styled(GiNoodles)`
+  &:hover {
+    color: ${({ theme }) => theme.fill};
+  }
+`;
+
 const StyledTitle = styled.h1`
   margin: 0;
   display: flex;
   align-items: center;
-  color: slateblue;
-`;
-
-const StyledHomeIcon = styled(GiNoodles)`
-  ${StyledTitle}:hover & {
-    fill: darkslateblue;
+  color: ${({ theme }) => theme.fontColor};
+  &:hover {
+    color: ${({ theme }) => theme.fill};
   }
 `;
 
@@ -48,11 +51,11 @@ const ListItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: slateblue;
+  //color: slateblue;
   &:hover {
     cursor: pointer;
-    border-bottom: 2px solid orange;
-    margin-bottom: -2px; // border adds 2px to box model, this prevents it from moving the element.
+    border-bottom: 3px solid ${({ theme }) => theme.fill};
+    margin-bottom: -3px; // border adds 2px to box model, this prevents it from moving the element.
   }
 `;
 
@@ -60,22 +63,12 @@ const ListItem = styled.li`
 // Hovering parent changes style, will only work if ListItem is defined above/before StyledStarIcon
 const StyledStarIcon = styled(FiStar)`
   padding-left: 3px;
-  fill: slateblue;
-  ${ListItem}:hover & {
-    fill: orange;
-  }
 `;
 const StyledAboutIcon = styled(FiInfo)`
   padding-left: 3px;
-  ${ListItem}:hover & {
-    fill: orange;
-  }
 `;
 const StyledInfoIcon = styled(IoIosContact)`
   padding-left: 3px;
-  ${ListItem}:hover & {
-    fill: orange;
-  }
 `;
 // END OF ICON STYLES
 
@@ -110,7 +103,8 @@ const NavigationBar = () => {
         }
       >
         <ListItem>
-          <button onClick={themeToggler}>Switch</button>
+          {/* TODO: Create a reusable Switch component an use it instead*/}
+          <span onClick={themeToggler}>Dark/light mode</span>
         </ListItem>
         <ListItem title="Favorites">
           Favorites <StyledStarIcon />

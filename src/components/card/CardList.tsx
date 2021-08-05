@@ -62,10 +62,6 @@ const CardList: React.FunctionComponent<ApiDataType> = ({
 
   // *** END OF SEARCH ***
 
-  const StyledNavigationBar = styled(NavigationBar)`
-    background-color: ${({ theme }) => theme.body};
-  `;
-
   return (
     <>
       <NavigationBar />
