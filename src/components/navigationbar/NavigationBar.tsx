@@ -40,6 +40,10 @@ const StyledTitle = styled.h1`
   margin: 0;
   display: flex;
   align-items: center;
+<<<<<<< HEAD
+=======
+  color: ${({ theme }) => theme.fontColor};
+>>>>>>> fix: dark and light mode for navigationbar part done
   &:hover {
     color: ${({ theme }) => theme.fill};
   }
@@ -51,6 +55,10 @@ const ListItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
+  <<<<<<< HEAD
+=======
+  //color: slateblue;
+>>>>>>> fix: dark and light mode for navigationbar part done
   &:hover {
     cursor: pointer;
     border-bottom: 3px solid ${({ theme }) => theme.fill};
