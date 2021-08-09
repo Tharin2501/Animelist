@@ -15,15 +15,17 @@ const SearchContainer = styled.div`
 const StyledInput = styled.input`
   border: 4px solid red;
   font-size: 15px;
-  width: 300px;
+  min-width: 300px;
   outline: none;
   border: none;
   padding: 7px;
-  background: aliceblue;
-  color: slateblue;
-  width: 300px;
+  background-color: ${({ theme }) => theme.color.aliceBlue};
+  color: ${({ theme }) => theme.color.slateBlue};
   &::placeholder {
-    color: slateblue;
+    color: ${({ theme }) => theme.color.slateBlue};
+  }
+  @media (max-width: 768px) {
+    min-width: 200px;
   }
 `;
 
@@ -32,8 +34,8 @@ const SearchIcon = styled.label`
   align-items: center;
   justify-content: center;
   padding: 6px;
-  background-color: aliceblue;
-  color: slateblue;
+  background-color: ${({ theme }) => theme.color.aliceBlue};
+  color: ${({ theme }) => theme.color.slateBlue};
 `;
 
 // dataResult
@@ -41,8 +43,8 @@ const DataContainer = styled.ul`
   // margin-top: 3px;
   width: 346px; // må være like lang som width på inputfiled
   height: 200px; // 300 for å få med alt mindre enn det og man må scrolle
-  background-color: aliceblue;
-  color: slateblue;
+  background-color: ${({ theme }) => theme.color.aliceBlue};
+  color: ${({ theme }) => theme.color.slateBlue};
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 10px;
   overflow: hidden;
   overflow-y: auto;
@@ -50,6 +52,9 @@ const DataContainer = styled.ul`
   padding: 0; // remove default padding of ul
   &::-webkit-scrollbar {
     //display: none;
+  }
+  @media (max-width: 768px) {
+    width: 246px;
   }
 `;
 
@@ -59,7 +64,7 @@ const DataItemLink = styled.a`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: slateblue;
+  color: ${({ theme }) => theme.color.slateBlue};
   &:hover {
     background-color: lightgray;
     cursor: pointer;
@@ -68,12 +73,12 @@ const DataItemLink = styled.a`
 
 const StyledListItem = styled.li`
   margin-left: 10px;
-  color: slateblue;
+  color: ${({ theme }) => theme.color.slateBlue};
 `;
 
 const StyledCloseBtn = styled(Close)`
   cursor: pointer;
-  color: slateblue;
+  color: ${({ theme }) => theme.color.slateBlue};
 `;
 
 // good source unused for now src: https://www.emgoto.com/react-search-bar/

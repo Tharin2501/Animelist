@@ -4,7 +4,7 @@ import { CardType } from "./types/CardType";
 import axios from "axios";
 import Modal from "../modal/Modal";
 import { AiTwotoneHeart } from "react-icons/ai";
-import { DefaultButton } from "../button/DefaultButton";
+import DefaultButton from "../button/DefaultButton";
 
 const Wrapper = styled.div`
   max-width: 250px;
@@ -18,7 +18,6 @@ const StyledCard = styled.div`
   padding: 12px;
   border-radius: 5px;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
-  color: ${({ theme }) => theme.fontColor};
 `;
 
 const StyledUnorderedList = styled.ul`
@@ -39,6 +38,15 @@ const FlexColumn = styled.span`
 
 const ButtonWrapper = styled.span`
   padding-top: 9px;
+`;
+
+const StyledDefaultButton = styled(DefaultButton)`
+  background-color: ${({ theme }) => theme.color.white};
+  color: ${({ theme }) => theme.color.slateBlue};
+  &:hover {
+    background-color: ${({ theme }) => theme.color.slateBlue};
+    color: ${({ theme }) => theme.color.white};
+  }
 `;
 
 const Card: React.FunctionComponent<CardType> = ({ item }) => {
@@ -69,8 +77,8 @@ const Card: React.FunctionComponent<CardType> = ({ item }) => {
     axios
       .post("http://localhost:3001/api/insert", postData)
       .then(() => {
-        setIsLoading(true);
         console.log(`POST success`);
+        setOpenModal(false);
       })
       .catch((error) => {
         alert(error);
@@ -91,29 +99,31 @@ const Card: React.FunctionComponent<CardType> = ({ item }) => {
               ) : (
                 <span>Start date: {item.start_date}</span>
               )}
-              {isLoading && openModal ? (
-                <Modal
-                  title={`${name}`}
-                  onClickPost={() => handlePostRequest()}
-                  onClickClose={() => setOpenModal(false)}
-                >
-                  {/* Added to favorites. right button(view favorites) routes to /favorites */}
-                  <span style={{ paddingTop: "13px" }}>
-                    Are you sure you want to add to favorites?
-                  </span>
-                </Modal>
-              ) : (
-                <ButtonWrapper>
-                  <DefaultButton
-                    icon={<AiTwotoneHeart color="tomato" />}
-                    onClick={() => handleGetRequest(item.mal_id!)}
-                    rounded
-                    bordered
+              {
+                /*isLoading &&*/ openModal ? (
+                  <Modal
+                    title={`${name}`}
+                    onClickPost={() => handlePostRequest()}
+                    onClickClose={() => setOpenModal(false)}
                   >
-                    Add to favorites
-                  </DefaultButton>
-                </ButtonWrapper>
-              )}
+                    {/* Added to favorites. right button(view favorites) routes to /favorites */}
+                    <span style={{ paddingTop: "13px" }}>
+                      Are you sure you want to add to favorites?
+                    </span>
+                  </Modal>
+                ) : (
+                  <ButtonWrapper>
+                    <StyledDefaultButton
+                      icon={<AiTwotoneHeart color="tomato" />}
+                      onClick={() => handleGetRequest(item.mal_id!)}
+                      rounded
+                      bordered
+                    >
+                      Add to favorites
+                    </StyledDefaultButton>
+                  </ButtonWrapper>
+                )
+              }
             </FlexColumn>
           </li>
         </StyledUnorderedList>

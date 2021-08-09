@@ -14,20 +14,24 @@ export const darkTheme = {
 
 /*  
     These are colors indepandent from dark/light theme
-    How to use: color: ${({ theme }) => theme.colors.persianGreen};
+    How to use: color: ${({ theme }) => theme.color.persianGreen};
 */
-const colors = {
-  colors: {
+export const color = {
+  color: {
     slateBlue: "SlateBlue",
     aliceBlue: "aliceBlue",
-    persianGreen: "#06B49A",
+    white: "#FFFFFF",
+    warning: "#dc3545",
   },
 };
 
+// Default colors font, etc for Dark/Light mode
 export const GlobalStyles = createGlobalStyle`
     body {
         background-color: ${({ theme }) => theme.body};
+        // W: SlateBlue / B: aliceBlue */
         color: ${({ theme }) => theme.fontColor};
+        // W: DarkSlateBlue / B: DarkOrange
         fill: ${({ theme }) => theme.fill}; 
     }
 `;
@@ -36,8 +40,8 @@ export const GlobalStyles = createGlobalStyle`
     Used in app.tsx. All the descendants of App will have access to the theme object.
     src: https://dev.to/aromanarguello/how-to-use-themes-in-styled-components-49h 
 */
-const Theme = ({ children }) => (
-  <ThemeProvider theme={colors}>{children}</ThemeProvider>
+const ThemeContextProvider = ({ children }) => (
+  <ThemeProvider theme={color}>{children}</ThemeProvider>
 );
 
-export default Theme;
+export default ThemeContextProvider;

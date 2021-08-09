@@ -1,12 +1,13 @@
 import CardContainer from "./components/card/CardContainer";
-import Theme from "./themes/themes";
+import ThemeContextProvider, { GlobalStyles } from "./themes/themes";
 require("dotenv").config();
 // API: https://jikan.docs.apiary.io/#reference
 const App = () => {
   return (
-    <Theme>
+    <ThemeContextProvider>
+      <GlobalStyles />
       <CardContainer />
-    </Theme>
+    </ThemeContextProvider>
   );
 };
 

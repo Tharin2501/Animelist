@@ -1,9 +1,9 @@
 import React from "react";
 import { ModalStyleType, ModalType } from "./ModalType";
 import styled from "styled-components";
-import { CloseButton } from "../button/OtherButtons";
 import { FiHeart } from "react-icons/fi";
-import { DefaultButton } from "../button/DefaultButton";
+import DefaultButton from "../button/DefaultButton";
+import { Close } from "@styled-icons/evaicons-solid";
 
 const ModalOverlay = styled.div<ModalStyleType>`
   position: fixed; // Stay in place
@@ -20,16 +20,17 @@ const ModalContent = styled.div<ModalStyleType>`
   border-radius: 9px;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.6);
   // dark and light theme
-  background-color: ${(props) => {
-    switch (props.modalColor) {
+
+  background-color: ${({ modalColor }) => {
+    switch (modalColor) {
       case "light":
         return "white";
       case "dark":
-        return "lightGrey";
+        return "black";
     }
   }};
-  color: ${(props) => {
-    switch (props.modalColor) {
+  color: ${({ modalColor }) => {
+    switch (modalColor) {
       case "light":
         return "black";
       case "dark":
@@ -74,6 +75,26 @@ const ButtonContainer = styled.span`
   width: 200px;
 `;
 
+const StyledDefaultButton = styled(DefaultButton)`
+  transition: 0.3s;
+  background-color: ${({ theme }) => theme.color.white};
+  &:hover {
+    background-color: ${({ theme }) => theme.color.warning};
+    color: ${({ theme }) => theme.color.white};
+    border: 2px solid ${({ theme }) => theme.color.warning};
+  }
+`;
+
+const StyledYesDefaultButton = styled(DefaultButton)`
+  transition: 0.3s;
+  background-color: ${({ theme }) => theme.color.white};
+  &:hover {
+    background-color: ${({ theme }) => theme.color.slateBlue};
+    color: ${({ theme }) => theme.color.white};
+    border: 2px solid ${({ theme }) => theme.color.slateBlue};
+  }
+`;
+
 /*
 https://medium.com/@lucksp_22012/pure-react-modal-6e562a317b85
 https://www.w3schools.com/howto/howto_css_modals.asp 
@@ -91,9 +112,9 @@ const Modal: React.FunctionComponent<ModalType> = ({
     <ModalOverlay>
       <ModalContent modalColor={modalColor} openPos={openPos}>
         <CloseButtonWrapper>
-          <CloseButton size={18} onClick={onClickClose}>
-            X
-          </CloseButton>
+          <StyledDefaultButton onClick={() => onClickClose()}>
+            <Close size={18} />
+          </StyledDefaultButton>
         </CloseButtonWrapper>
         <FlexCenterColumn>{icon}</FlexCenterColumn>
         <FlexCenterColumn>
@@ -102,16 +123,12 @@ const Modal: React.FunctionComponent<ModalType> = ({
         </FlexCenterColumn>
         <FlexCenterColumn>
           <ButtonContainer>
-            <DefaultButton
-              bordered
-              bgColorHover="tomato"
-              onClick={onClickClose}
-            >
+            <StyledDefaultButton bordered onClick={onClickClose}>
               Cancel
-            </DefaultButton>
-            <DefaultButton bordered onClick={onClickPost}>
+            </StyledDefaultButton>
+            <StyledYesDefaultButton bordered onClick={onClickPost}>
               Yes
-            </DefaultButton>
+            </StyledYesDefaultButton>
           </ButtonContainer>
         </FlexCenterColumn>
       </ModalContent>

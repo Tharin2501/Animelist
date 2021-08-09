@@ -40,7 +40,6 @@ const StyledTitle = styled.h1`
   margin: 0;
   display: flex;
   align-items: center;
-  color: ${({ theme }) => theme.aliceBlue};
   &:hover {
     color: ${({ theme }) => theme.fill};
   }
@@ -52,7 +51,6 @@ const ListItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.aliceBlue};
   &:hover {
     cursor: pointer;
     border-bottom: 3px solid ${({ theme }) => theme.fill};
