@@ -1,7 +1,22 @@
 import { ApiDataType } from "./card/types/CardType";
 import { useState, useCallback } from "react";
-import { Button } from "./button/OtherButtons";
 import Synopsis from "./synopsis/Synopsis";
+import DefaultButton from "./button/DefaultButton";
+import styled from "styled-components";
+
+const StyledDefaultButton = styled(DefaultButton)`
+  margin: 3px;
+  padding: 2px 4px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  color: slateBlue;
+  &:hover {
+    border: 1px solid slateBlue;
+    cursor: pointer;
+  }
+  background-color: ${({ active }) => (active ? "slateBlue" : null)};
+  color: ${({ active }) => (active ? "white" : null)};
+`;
 
 const TitleButtonGroup: React.FunctionComponent<ApiDataType> = ({
   filteredData,
@@ -28,13 +43,13 @@ const TitleButtonGroup: React.FunctionComponent<ApiDataType> = ({
 
   const ButtonGroup = ({ filteredData }: ApiDataType) => {
     const listButtons = filteredData?.map((item) => (
-      <Button
+      <StyledDefaultButton
         key={item.mal_id}
         active={activeButton === item.mal_id ? true : false}
         onClick={() => handleOnClick(item.mal_id!)}
       >
         {item.title}
-      </Button>
+      </StyledDefaultButton>
     ));
     return <ul>{listButtons}</ul>;
   };

@@ -6,19 +6,11 @@ import {
 
 const DefaultButtonStyle = styled.button<DefaultButtonStyleType>`
   padding: 4px 6px;
-  border: ${(props) =>
-    props.bordered ? "2px solid lightgray" : "2px solid transparent"};
-  border-radius: ${(props) => {
-    if (props.rounded === true) {
-      return `${"9px"}`;
-    }
-  }};
-  background-color: ${(props) => props.bgColor};
-  color: slateblue;
+  border: ${({ bordered }) =>
+    bordered ? "2px solid lightgray" : "2px solid transparent"};
+  border-radius: ${({ rounded }) => (rounded ? `${"8px"}` : null)};
+
   &:hover {
-    background-color: ${(props) => props.bgColorHover};
-    color: white;
-    border: 2px solid ${(props) => props.bgColorHover};
     cursor: pointer;
   }
 `;
@@ -30,22 +22,20 @@ const DefaultButtonContent = styled.span`
   align-items: center;
 `;
 
-export const DefaultButton: React.FunctionComponent<DefaultButtonType> = ({
+const DefaultButton: React.FunctionComponent<DefaultButtonType> = ({
   children,
+  className,
   icon,
   onClick,
   rounded,
-  bgColorHover = "slateBlue",
-  bgColor = "white",
   bordered = true,
 }) => {
   return (
     <DefaultButtonStyle
-      bgColor={bgColor}
-      bgColorHover={bgColorHover}
       rounded={rounded}
       bordered={bordered}
       onClick={onClick}
+      className={className}
     >
       <DefaultButtonContent>
         {icon}
@@ -54,3 +44,5 @@ export const DefaultButton: React.FunctionComponent<DefaultButtonType> = ({
     </DefaultButtonStyle>
   );
 };
+
+export default DefaultButton;

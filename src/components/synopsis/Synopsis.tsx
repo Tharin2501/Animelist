@@ -1,7 +1,7 @@
+import { Close } from "@styled-icons/evaicons-solid/Close";
 import styled from "styled-components";
-import { CloseButton } from "../button/OtherButtons";
+import DefaultButton from "../button/DefaultButton";
 import SynopsisType from "./types/SynopsisType";
-// import { Close } from "@styled-icons/evaicons-solid/Close";
 
 const SynopsisWrapper = styled.div`
   padding: 6px;
@@ -13,19 +13,16 @@ const Flex = styled.span`
   justify-content: space-between;
   padding-bottom: 6px;
 `;
-/*
-export const StyledButton = styled(Close)`
-  border: 1px solid black;
-  border-radius: 3px;
-  padding: 3px;
-  transition: 0.6s;
+
+const StyledDefaultButton = styled(DefaultButton)`
+  transition: 0.3s;
+  background-color: ${({ theme }) => theme.color.white};
   &:hover {
-    cursor: pointer;
-    background: tomato;
-    color: white;
+    background-color: ${({ theme }) => theme.color.warning};
+    color: ${({ theme }) => theme.color.white};
+    border: 2px solid ${({ theme }) => theme.color.warning};
   }
 `;
-*/
 
 const Synopsis = ({
   toggleSynopsis,
@@ -35,13 +32,16 @@ const Synopsis = ({
   const handleOnClose = () => {
     setToggleSynopsis(false);
   };
+
   return (
     <div>
       {toggleSynopsis ? (
         <SynopsisWrapper>
           <Flex>
             <span>Plot:</span>
-            <CloseButton size={18} onClick={() => handleOnClose()} />
+            <StyledDefaultButton onClick={() => handleOnClose()}>
+              <Close size={18} />
+            </StyledDefaultButton>
           </Flex>
           {actualAnime}
         </SynopsisWrapper>

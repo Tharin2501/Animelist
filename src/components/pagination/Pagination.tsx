@@ -1,6 +1,21 @@
 import { useEffect, useState } from "react";
-import { Button } from "../button/OtherButtons";
+import styled from "styled-components";
+import DefaultButton from "../button/DefaultButton";
 import PaginationType from "./types/PaginationType";
+
+const StyledDefaultButton = styled(DefaultButton)`
+  margin: 3px;
+  padding: 2px 4px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  color: ${({ theme }) => theme.color.slateBlue};
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.color.slateBlue};
+    cursor: pointer;
+  }
+  background-color: ${({ active }) => (active ? "slateBlue" : null)};
+  color: ${({ active }) => (active ? "white" : null)};
+`;
 
 const Pagination = ({
   postsPerPage,
@@ -42,21 +57,23 @@ const Pagination = ({
   return (
     <>
       {activeButton! > 1 ? (
-        <Button onClick={() => handleOnPrevClick(--currentPage)}>
+        <StyledDefaultButton onClick={() => handleOnPrevClick(--currentPage)}>
           Previous
-        </Button>
+        </StyledDefaultButton>
       ) : null}
       {pageNumbers.map((pageNumber) => (
-        <Button
+        <StyledDefaultButton
           key={pageNumber}
           onClick={() => handleOnClick(pageNumber)}
           active={activeButton === pageNumber ? true : false}
         >
           {pageNumber}
-        </Button>
+        </StyledDefaultButton>
       ))}
       {activeButton === pageNumbers.length ? null : (
-        <Button onClick={() => handleOnNextClick(++currentPage)}>Next</Button>
+        <StyledDefaultButton onClick={() => handleOnNextClick(++currentPage)}>
+          Next
+        </StyledDefaultButton>
       )}
     </>
   );

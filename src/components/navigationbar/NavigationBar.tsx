@@ -1,9 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import styled, { ThemeProvider } from "styled-components";
 import NavigaitonBarType from "./types/NavigationBarType";
 import { FiStar, FiInfo } from "react-icons/fi";
 import { GiNoodles } from "react-icons/gi";
 import { IoIosContact } from "react-icons/io";
+import { darkTheme, GlobalStyles, lightTheme } from "../../themes/themes";
+import Toggler from "../Toggler";
 
 const FlexUl = styled.ul`
   display: flex;
@@ -13,7 +15,6 @@ const FlexUl = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 6px;
-  background-color: snow;
   // screen larger than 320px
   @media (min-width: 320px) {
     justify-content: flex-end;
@@ -29,16 +30,18 @@ const TitleWrapper = styled.li`
   }
 `;
 
+const StyledHomeIcon = styled(GiNoodles)`
+  &:hover {
+    color: ${({ theme }) => theme.fill};
+  }
+`;
+
 const StyledTitle = styled.h1`
   margin: 0;
   display: flex;
   align-items: center;
-  color: slateblue;
-`;
-
-const StyledHomeIcon = styled(GiNoodles)`
-  ${StyledTitle}:hover & {
-    fill: darkslateblue;
+  &:hover {
+    color: ${({ theme }) => theme.fill};
   }
 `;
 
@@ -48,11 +51,10 @@ const ListItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: slateblue;
   &:hover {
     cursor: pointer;
-    border-bottom: 2px solid orange;
-    margin-bottom: -2px; // border adds 2px to box model, this prevents it from moving the element.
+    border-bottom: 3px solid ${({ theme }) => theme.fill};
+    margin-bottom: -3px; // border adds 2px to box model, this prevents it from moving the element.
   }
 `;
 
@@ -60,22 +62,12 @@ const ListItem = styled.li`
 // Hovering parent changes style, will only work if ListItem is defined above/before StyledStarIcon
 const StyledStarIcon = styled(FiStar)`
   padding-left: 3px;
-  fill: slateblue;
-  ${ListItem}:hover & {
-    fill: orange;
-  }
 `;
 const StyledAboutIcon = styled(FiInfo)`
   padding-left: 3px;
-  ${ListItem}:hover & {
-    fill: orange;
-  }
 `;
 const StyledInfoIcon = styled(IoIosContact)`
   padding-left: 3px;
-  ${ListItem}:hover & {
-    fill: orange;
-  }
 `;
 // END OF ICON STYLES
 
@@ -93,8 +85,14 @@ export const NavigationBarItems: React.FunctionComponent<NavigaitonBarType> = ({
 };
 
 const NavigationBar = () => {
+  const [theme, setTheme] = useState("light");
+
+  const themeToggler = () => {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  };
   return (
-    <>
+    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+      <GlobalStyles />
       <NavigationBarItems
         title={
           <StyledTitle title="Animelist">
@@ -103,6 +101,10 @@ const NavigationBar = () => {
           </StyledTitle>
         }
       >
+        <ListItem>
+          {/* TODO: Create a reusable Switch component an use it instead*/}
+          <Toggler theme={theme} toggleTheme={themeToggler} />
+        </ListItem>
         <ListItem title="Favorites">
           Favorites <StyledStarIcon />
         </ListItem>
@@ -113,7 +115,7 @@ const NavigationBar = () => {
           Contact <StyledInfoIcon />
         </ListItem>
       </NavigationBarItems>
-    </>
+    </ThemeProvider>
   );
 };
 
