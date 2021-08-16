@@ -32,17 +32,33 @@ module.exports = (plop) => {
       // Creates the Type for the Component
       {
         type: "add",
-        path: "src/components/{{pascalCase name}}/types/{{pascalCase name}}Type.ts",
+        path:
+          "src/components/{{pascalCase name}}/types/{{pascalCase name}}Type.ts",
         templateFile: "plop-templates/Type.js.hbs",
       },
-      /*
+
       // Creates the Test
       {
         type: "add",
-        path: "src/components/{{pascalCase name}}/tests/{{pascalCase name}}.test.js",
+        path:
+          "src/components/{{pascalCase name}}/tests/{{pascalCase name}}.test.js",
         templateFile: "plop-templates/Component.test.js.hbs",
       },
-      */
+
+      // Creates the Story file
+      {
+        type: "add",
+        path:
+          "src/components/{{pascalCase name}}/stories/{{pascalCase name}}.stories.js",
+        templateFile: "plop-templates/Stories.js.hbs",
+      },
+      // Creates the Documentation mdx file for Story
+      {
+        type: "add",
+        path:
+          "src/components/{{pascalCase name}}/stories/{{pascalCase name}}Doc.mdx",
+        templateFile: "plop-templates/Documentation.mdx.hbs",
+      },
     ],
   });
 };

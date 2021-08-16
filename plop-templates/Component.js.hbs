@@ -5,10 +5,10 @@ const Wrapper = styled.div`
 
 `
 
-const {{pascalCase name}}: React.FunctionComponent<{{pascalCase name}}Type> = ({props}) => {
+const {{pascalCase name}}: React.FunctionComponent<{{pascalCase name}}Type> = ({children}) => {
   return (
     <Wrapper>
-     {{pascalCase name}}
+     {children}
     </Wrapper>
   );
 };
