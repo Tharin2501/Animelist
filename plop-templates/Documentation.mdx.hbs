@@ -1,0 +1,23 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import {{pascalCase name}} from '../{{pascalCase name}}'
+
+<Meta title="Components/{{pascalCase name}}" component={ {{pascalCase name}} } />
+
+# [Name of Component]
+
+Here's some _markdown_!<br/>
+You should document the component here and delete this boilerplate<br/>
+To embed a preview of an existing story into this mdx file, specify an id for the `<Story id="some-component--some-name">`<br/>
+Find the id to use by looking at the url of your story. This is automatically fixed by the plop template
+
+# Preview
+
+<Preview>
+  <Story id="components-{{camelCase name}}--{{camelCase name}}-component">
+    <{{pascalCase name}}>This is an Example</{{pascalCase name}}>
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={ {{pascalCase name}} } />

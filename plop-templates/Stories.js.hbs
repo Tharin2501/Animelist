@@ -1,0 +1,18 @@
+import {{pascalCase name}} from '../{{pascalCase name}}'
+import {{pascalCase name}}Doc from './{{pascalCase name}}Doc.mdx'
+
+export default {
+  title: "Components/{{pascalCase name}}", // You can also create sub-directories /
+  component: {{pascalCase name}},
+  parameters: {
+    docs: { page: {{pascalCase name}}Doc },
+  },
+};
+
+const Template = (args) => <{{pascalCase name}} {...args} />;
+
+export const {{pascalCase name}}Component = Template.bind({});
+{{pascalCase name}}Component.args = {
+  // Default data for props here
+  children: "A value"
+};
