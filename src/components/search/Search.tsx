@@ -140,13 +140,15 @@ const Search: React.FunctionComponent<SearchType> = ({
       </SearchContainer>
       {searchTerm.length !== 0 && (
         <DataContainer>
-          {filteredPosts!.slice(0, 15).map((item: ApiDataType) => {
-            return (
-              <DataItemLink href={item.url} key={item.mal_id}>
-                <StyledListItem>{item.title}</StyledListItem>
-              </DataItemLink>
-            );
-          })}
+          {filteredPosts
+            ? filteredPosts.slice(0, 15).map((item: ApiDataType) => {
+                return (
+                  <DataItemLink href={item.url} key={item.mal_id}>
+                    <StyledListItem>{item.title}</StyledListItem>
+                  </DataItemLink>
+                );
+              })
+            : null}
         </DataContainer>
       )}
     </form>

@@ -2,6 +2,8 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom"; // to use toBeInTheDocument, normally in a setupTest.js file.
 import Card from "../components/card/Card";
 import CardList from "../components/card/CardList";
+import { color } from "../themes/themes";
+import { ThemeProvider } from "styled-components";
 
 // How to run single test: yarn test -t 'name of test'
 
@@ -12,9 +14,22 @@ const cardStub = {
   image_url: "Test image url",
 };
 
+/* 
+  TypeError: Cannot read property 'theme' of undefined
+  Fix: https://stackoverflow.com/questions/58742283/how-to-test-react-component-with-hooks-using-react-testing-library
+  Why?: Since the components is styled using 'themes' the component requires ThemeProvider context. 
+*/
 beforeEach(() => {
-  render(<Card item={cardStub} />);
-  render(<CardList />);
+  render(
+    <ThemeProvider theme={color}>
+      <Card item={cardStub} />
+    </ThemeProvider>
+  );
+  render(
+    <ThemeProvider theme={color}>
+      <CardList />
+    </ThemeProvider>
+  );
   screen.debug();
 });
 
