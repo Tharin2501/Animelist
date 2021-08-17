@@ -1,6 +1,5 @@
 // https://blog.logrocket.com/automatically-generate-your-own-react-components-with-plop-js-2da3b39914f3/
 // git docs: https://plopjs.com/documentation/#getting-started
-//TODO: FOR STORYBOOK! another guide: https://dev.to/abdulkareemtpm/generate-your-own-react-component-using-cli-by-using-plop-js-2ei
 
 // How to run: yarn plop
 module.exports = (plop) => {
@@ -25,7 +24,7 @@ module.exports = (plop) => {
         // Add a new file
         type: "add",
         // Path for the new file. The pascalCase modifier is used to ensure name is formatted in PascalCase.
-        path: "src/components/{{pascalCase name}}/{{pascalCase name}}.tsx",
+        path: "src/components/{{camelCase name}}/{{pascalCase name}}.tsx",
         // path for file containing the template. Template used to generate content of new file
         templateFile: "plop-templates/Component.js.hbs",
       },
