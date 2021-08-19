@@ -78,7 +78,7 @@ export const NavigationBarItems: React.FunctionComponent<NavigaitonBarType> = ({
   title,
 }) => {
   return (
-    <FlexUl role="navigation">
+    <FlexUl role="navigation" data-cy="navbar-items">
       <TitleWrapper>{title}</TitleWrapper>
       {children}
     </FlexUl>
@@ -96,13 +96,13 @@ const NavigationBar = () => {
       <GlobalStyles />
       <NavigationBarItems
         title={
-          <StyledTitle title="Animelist">
-            <StyledHomeIcon size={30} />
-            Animelist
+          <StyledTitle title="Animelist" data-cy="navbar-title">
+            <StyledHomeIcon size={30} data-cy="navbar-homesvg" />
+            <span>Animelist</span>
           </StyledTitle>
         }
       >
-        <ListItem>
+        <ListItem data-cy="navbar-darkmode">
           {/* TODO: Create a reusable Switch component an use it instead*/}
           <Toggler theme={theme} toggleTheme={themeToggler} />
         </ListItem>
