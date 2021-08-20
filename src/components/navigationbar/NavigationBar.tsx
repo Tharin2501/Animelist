@@ -109,7 +109,7 @@ const NavigationBar = () => {
         <ListItem title="Favorites">
           Favorites <StyledStarIcon />
         </ListItem>
-        <ListItem title="About">
+        <ListItem title="About" data-cy="navbar-x">
           About <StyledAboutIcon />
         </ListItem>
         <ListItem title="Contact">

@@ -5,4 +5,13 @@
       "types": ["cypress"]
     },
     "include": ["**/*.ts"]
+    ,
+    //  Expect has no modifier named "to". eslint(jest/valid-except)
+    "overrides": [{
+      "files": [ "*.spec.js" ],
+      "rules": {
+        "no-unused-expressions": "off"
+        
+      }
+    }]
   }

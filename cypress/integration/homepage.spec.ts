@@ -1,8 +1,23 @@
+/* eslint-disable jest/valid-expect */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+
 /*
-    - data-cy or contains for selecting elements ? 
-    If the content of the element changed would you want the test to fail?
-    yes: then use cy.contains()
-    no: then use a data attribute.
+    FAQ
+    -  data-cy or contains for selecting elements ? 
+       If the content of the element changed would you want the test to fail?
+       yes: then use cy.contains()
+       no: then use a data attribute.
+    -  use expect() assertions when you would like to make multiple assertions for the same subject &
+       manipulate your subject before making your assertion. 
+
+    // API in this file
+    .get ->
+
+    src
+    - Testing list of items: https://www.cypress.io/blog/2020/04/23/guest-post-testing-lists-of-items/
+    - DRY testing list of items: https://filiphric.com/testing-links-with-cypress 
+    - DRY Iterate a list: https://glebbahmutov.com/cypress-examples/6.3.0/recipes/each-example.html#how-to-read-values-from-elements-using-each
+    - Assertions: https://example.cypress.io/commands/assertions
 */
 
 beforeEach(() => {
@@ -41,4 +56,24 @@ describe("Navigationbar tests", () => {
       .get("body")
       .should("have.css", "background-color", "rgb(255, 255, 255)");
   });
+
+  // Get A DOM element at a specific index in an array of elements.
+  it('should render correct name for each listItem', () => {
+    /*
+    cy.get("[data-cy=navbar-items]").children().should(items => {
+      expect(items[0]).to.contain.text('Animelist')
+      expect(items[1]).to.contain.text('Switch Theme')
+      expect(items[2]).to.contain.text('Favorites')
+      expect(items[3]).to.contain.text('About')
+      expect(items[4]).to.contain.text('Contact')
+    })
+    */
+    const list = []
+    cy.get('li')
+      .each((li) => {
+        list.push(String(li.text()))
+      })
+      .wrap(list)
+      .should('deep.equal', ["Animelist", "Switch Theme", "Favorites ", "About ", "Contact "])
+  })
 });
