@@ -32,9 +32,13 @@ describe("Navigationbar tests", () => {
   // NOTE: This will probably fail when i implement a reusable Switch component, just fix it after
   it("Should display html body as black when toggle darkmode, white otherwise", () => {
     cy.get("body").should("have.css", "background-color", "rgb(255, 255, 255)");
-    cy.get("[data-cy=navbar-darkmode]").click();
-    cy.get("body").should("have.css", "background-color", "rgb(18, 18, 18)");
-    cy.get("[data-cy=navbar-darkmode]").click();
-    cy.get("body").should("have.css", "background-color", "rgb(255, 255, 255)");
+    cy.get("[data-cy=navbar-darkmode]")
+      .click()
+      .get("body")
+      .should("have.css", "background-color", "rgb(18, 18, 18)");
+    cy.get("[data-cy=navbar-darkmode]")
+      .click()
+      .get("body")
+      .should("have.css", "background-color", "rgb(255, 255, 255)");
   });
 });
