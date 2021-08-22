@@ -116,10 +116,9 @@ const Search: React.FunctionComponent<SearchType> = ({
   };
 
   const filteredPosts = filterItems(searchTerm);
-  // END OF TODO
 
   return (
-    <form action="/" method="get" autoComplete="off">
+    <form action="/" method="get" autoComplete="off" data-cy="searchbar">
       <SearchContainer>
         <SearchIcon>
           {searchTerm.length === 0 ? (
@@ -139,7 +138,7 @@ const Search: React.FunctionComponent<SearchType> = ({
         />
       </SearchContainer>
       {searchTerm.length !== 0 && (
-        <DataContainer>
+        <DataContainer data-cy="searchbar-datacontainer">
           {filteredPosts
             ? filteredPosts.slice(0, 15).map((item: ApiDataType) => {
                 return (
