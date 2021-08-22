@@ -73,13 +73,18 @@ describe("Navigationbar tests", () => {
       .should('deep.equal', ["Animelist", "Switch Theme", "Favorites ", "About ", "Contact "])
   })
 
-  it('should render a svg for frist listItem and for the last 3', () => {
-    cy.get("[data-cy=navbar-items]").find('li').eq(0).find('svg').should('exist') 
-    cy.get("[data-cy=navbar-items]").find('li').eq(1).find('svg').should('not.exist') 
-    cy.get("[data-cy=navbar-items]").find('li').eq(2).find('svg').should('exist') 
-    cy.get("[data-cy=navbar-items]").find('li').eq(3).find('svg').should('exist') 
-    cy.get("[data-cy=navbar-items]").find('li').eq(4).find('svg').should('exist') 
+  it('should render a svg for first listItem and for the last 3', () => {
+    cy.get("[data-cy=navbar-items]").find('li').first().find('svg').should('exist') 
+    cy.get("[data-cy=navbar-items]").find('li').first().next().find('svg').should('not.exist') 
+    // cy.get("[data-cy=navbar-items]").find('li').eq(2).find('svg').should('exist') 
+    // cy.get("[data-cy=navbar-items]").find('li').eq(3).find('svg').should('exist') 
+    // cy.get("[data-cy=navbar-items]").find('li').eq(4).find('svg').should('exist') 
+    cy.get("[data-cy=navbar-items]").find('li').nextAll().find('svg').should('have.length', 3)
+  })
+
+  it('should render border-bottom with correct values for every li except title', () => {
+    cy.get("[data-cy=navbar-items]").find('li').nextAll().realHover()
+     .should("have.css", "border-bottom", "3px solid rgb(72, 61, 139)")
   })
 
 });
-
