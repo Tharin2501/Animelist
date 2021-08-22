@@ -23,3 +23,6 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+// src: https://github.com/dmtrKovalenko/cypress-real-events
+import "cypress-real-events/support";
