@@ -3,7 +3,7 @@ import Switch from "../Switch";
 
 // Use this to imitate usage of our component
 const Example = () => {
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
 
   const handleOnChange = () => {
     setChecked(!checked);

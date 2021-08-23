@@ -16,9 +16,7 @@ const ExampleTemplate = (args) => <Example {...args} />;
 
 // story that uses our Example file
 export const UseCase = ExampleTemplate.bind({});
-UseCase.args = {
-  isChecked: false,
-};
+//  UseCase.args = {};
 
 export const SwitchComponent = Template.bind({});
 SwitchComponent.args = {
