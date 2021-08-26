@@ -1,6 +1,11 @@
-type Switch = {
+import { ReactNode } from "react";
+
+export type SwitchType = {
     isChecked: boolean;
     onChange: () => void;
+    icon?: ReactNode;
 }
 
-export default Switch;
+export type StyledCheckboxType = {
+    checked: boolean;
+};

@@ -11,8 +11,8 @@ export default {
   },
 };
 
-const Template = (args) => <Switch {...args} />;
 const ExampleTemplate = (args) => <Example {...args} />;
+const Template = (args) => <Switch {...args} />;
 
 // story that uses our Example file
 export const UseCase = ExampleTemplate.bind({});
@@ -22,5 +22,5 @@ export const SwitchComponent = Template.bind({});
 SwitchComponent.args = {
   // Default data for props here
   //children: "A value",
-  isChecked: true,
+  isChecked: false,
 };
